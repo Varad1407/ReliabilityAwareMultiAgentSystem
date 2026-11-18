@@ -1,0 +1,1152 @@
+{
+    "experiment": "Day 27 - Online Retail Repeated Fault Injection",
+    "timestamp_utc": "2026-11-17T09:26:24.585601+00:00",
+    "dataset": "UCI Online Retail",
+    "trials_per_scenario": 5,
+    "number_of_scenarios": 4,
+    "total_trials": 20,
+    "summary": {
+        "Wrong database table": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 0,
+                "correct_trials": 0,
+                "execution_success_rate": 0.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.0006
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 2.0026,
+                "total_recovery_attempts": 5,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Wrong date filter": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.7079
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.9975,
+                "total_recovery_attempts": 0,
+                "average_recovery_attempts": 0.0
+            }
+        },
+        "Wrong sorting": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.0994
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 3.6,
+                "total_recovery_attempts": 5,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Wrong transaction filter": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.6186
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.9037,
+                "total_recovery_attempts": 0,
+                "average_recovery_attempts": 0.0
+            }
+        }
+    },
+    "individual_results": [
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 1,
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "invoice_count"
+            ],
+            "system_b": {
+                "success": false,
+                "latency_seconds": 0.0002,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": null,
+                "correct": false,
+                "error": "no such table: products"
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 6.215,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 2,
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "invoice_count"
+            ],
+            "system_b": {
+                "success": false,
+                "latency_seconds": 0.0007,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": null,
+                "correct": false,
+                "error": "no such table: products"
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9804,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 3,
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "invoice_count"
+            ],
+            "system_b": {
+                "success": false,
+                "latency_seconds": 0.0005,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": null,
+                "correct": false,
+                "error": "no such table: products"
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9886,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 4,
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "invoice_count"
+            ],
+            "system_b": {
+                "success": false,
+                "latency_seconds": 0.0008,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": null,
+                "correct": false,
+                "error": "no such table: products"
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9185,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 5,
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "invoice_count"
+            ],
+            "system_b": {
+                "success": false,
+                "latency_seconds": 0.0009,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": null,
+                "correct": false,
+                "error": "no such table: products"
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9103,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 7,
+            "trial": 1,
+            "question": "How many records were recorded in November 2011?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'",
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "expected_columns": [
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8342,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.9198,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 7,
+            "trial": 2,
+            "question": "How many records were recorded in November 2011?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'",
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "expected_columns": [
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.6692,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.7646,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 7,
+            "trial": 3,
+            "question": "How many records were recorded in November 2011?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'",
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "expected_columns": [
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.6785,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.7631,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 7,
+            "trial": 4,
+            "question": "How many records were recorded in November 2011?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'",
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "expected_columns": [
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.6829,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.7681,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 7,
+            "trial": 5,
+            "question": "How many records were recorded in November 2011?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'",
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "expected_columns": [
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.6749,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.7719,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-10-01'\n            AND InvoiceDate < '2011-11-01'\n        ",
+                "rows": [
+                    [
+                        60742
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong sorting",
+            "benchmark_id": 6,
+            "trial": 1,
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "faulty_sql": "SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5",
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "expected_columns": [
+                "Country",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1079,
+                "sql_query": "\n            SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5\n        ",
+                "rows": [
+                    [
+                        "Saudi Arabia",
+                        10
+                    ],
+                    [
+                        "Bahrain",
+                        19
+                    ],
+                    [
+                        "Czech Republic",
+                        30
+                    ],
+                    [
+                        "Brazil",
+                        32
+                    ],
+                    [
+                        "Lithuania",
+                        35
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 6.1232,
+                "sql_query": "SELECT Country, COUNT(*) AS record_count\nFROM online_retail\nGROUP BY Country\nORDER BY record_count DESC, Country ASC\nLIMIT 5",
+                "rows": [
+                    [
+                        "United Kingdom",
+                        495478
+                    ],
+                    [
+                        "Germany",
+                        9495
+                    ],
+                    [
+                        "France",
+                        8557
+                    ],
+                    [
+                        "EIRE",
+                        8196
+                    ],
+                    [
+                        "Spain",
+                        2533
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong sorting",
+            "benchmark_id": 6,
+            "trial": 2,
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "faulty_sql": "SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5",
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "expected_columns": [
+                "Country",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1063,
+                "sql_query": "\n            SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5\n        ",
+                "rows": [
+                    [
+                        "Saudi Arabia",
+                        10
+                    ],
+                    [
+                        "Bahrain",
+                        19
+                    ],
+                    [
+                        "Czech Republic",
+                        30
+                    ],
+                    [
+                        "Brazil",
+                        32
+                    ],
+                    [
+                        "Lithuania",
+                        35
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.8165,
+                "sql_query": "SELECT Country, COUNT(*) AS record_count\nFROM online_retail\nGROUP BY Country\nORDER BY record_count DESC, Country ASC\nLIMIT 5",
+                "rows": [
+                    [
+                        "United Kingdom",
+                        495478
+                    ],
+                    [
+                        "Germany",
+                        9495
+                    ],
+                    [
+                        "France",
+                        8557
+                    ],
+                    [
+                        "EIRE",
+                        8196
+                    ],
+                    [
+                        "Spain",
+                        2533
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong sorting",
+            "benchmark_id": 6,
+            "trial": 3,
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "faulty_sql": "SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5",
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "expected_columns": [
+                "Country",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0876,
+                "sql_query": "\n            SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5\n        ",
+                "rows": [
+                    [
+                        "Saudi Arabia",
+                        10
+                    ],
+                    [
+                        "Bahrain",
+                        19
+                    ],
+                    [
+                        "Czech Republic",
+                        30
+                    ],
+                    [
+                        "Brazil",
+                        32
+                    ],
+                    [
+                        "Lithuania",
+                        35
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.6852,
+                "sql_query": "SELECT Country, COUNT(*) AS record_count\nFROM online_retail\nGROUP BY Country\nORDER BY record_count DESC, Country ASC\nLIMIT 5",
+                "rows": [
+                    [
+                        "United Kingdom",
+                        495478
+                    ],
+                    [
+                        "Germany",
+                        9495
+                    ],
+                    [
+                        "France",
+                        8557
+                    ],
+                    [
+                        "EIRE",
+                        8196
+                    ],
+                    [
+                        "Spain",
+                        2533
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong sorting",
+            "benchmark_id": 6,
+            "trial": 4,
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "faulty_sql": "SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5",
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "expected_columns": [
+                "Country",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.097,
+                "sql_query": "\n            SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5\n        ",
+                "rows": [
+                    [
+                        "Saudi Arabia",
+                        10
+                    ],
+                    [
+                        "Bahrain",
+                        19
+                    ],
+                    [
+                        "Czech Republic",
+                        30
+                    ],
+                    [
+                        "Brazil",
+                        32
+                    ],
+                    [
+                        "Lithuania",
+                        35
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.6912,
+                "sql_query": "SELECT Country, COUNT(*) AS record_count\nFROM online_retail\nGROUP BY Country\nORDER BY record_count DESC, Country ASC\nLIMIT 5",
+                "rows": [
+                    [
+                        "United Kingdom",
+                        495478
+                    ],
+                    [
+                        "Germany",
+                        9495
+                    ],
+                    [
+                        "France",
+                        8557
+                    ],
+                    [
+                        "EIRE",
+                        8196
+                    ],
+                    [
+                        "Spain",
+                        2533
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong sorting",
+            "benchmark_id": 6,
+            "trial": 5,
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "faulty_sql": "SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5",
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "expected_columns": [
+                "Country",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0983,
+                "sql_query": "\n            SELECT Country, COUNT(*) AS record_count\n            FROM online_retail\n            GROUP BY Country\n            ORDER BY record_count ASC, Country ASC\n            LIMIT 5\n        ",
+                "rows": [
+                    [
+                        "Saudi Arabia",
+                        10
+                    ],
+                    [
+                        "Bahrain",
+                        19
+                    ],
+                    [
+                        "Czech Republic",
+                        30
+                    ],
+                    [
+                        "Brazil",
+                        32
+                    ],
+                    [
+                        "Lithuania",
+                        35
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.6838,
+                "sql_query": "SELECT Country, COUNT(*) AS record_count\nFROM online_retail\nGROUP BY Country\nORDER BY record_count DESC, Country ASC\nLIMIT 5",
+                "rows": [
+                    [
+                        "United Kingdom",
+                        495478
+                    ],
+                    [
+                        "Germany",
+                        9495
+                    ],
+                    [
+                        "France",
+                        8557
+                    ],
+                    [
+                        "EIRE",
+                        8196
+                    ],
+                    [
+                        "Spain",
+                        2533
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong transaction filter",
+            "benchmark_id": 5,
+            "trial": 1,
+            "question": "How many non-cancellation records have a negative quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0",
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "expected_columns": [
+                "return_records"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.7591,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.8168,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong transaction filter",
+            "benchmark_id": 5,
+            "trial": 2,
+            "question": "How many non-cancellation records have a negative quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0",
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "expected_columns": [
+                "return_records"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.5878,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.6728,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong transaction filter",
+            "benchmark_id": 5,
+            "trial": 3,
+            "question": "How many non-cancellation records have a negative quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0",
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "expected_columns": [
+                "return_records"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.5781,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.6699,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong transaction filter",
+            "benchmark_id": 5,
+            "trial": 4,
+            "question": "How many non-cancellation records have a negative quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0",
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "expected_columns": [
+                "return_records"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.5835,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.6794,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong transaction filter",
+            "benchmark_id": 5,
+            "trial": 5,
+            "question": "How many non-cancellation records have a negative quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0",
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "expected_columns": [
+                "return_records"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.5846,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.6797,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity < 0\n        ",
+                "rows": [
+                    [
+                        10624
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        }
+    ]
+}

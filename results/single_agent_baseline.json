@@ -1,0 +1,385 @@
+{
+    "experiment": "Single-Agent Baseline",
+    "model": "qwen2.5:7b",
+    "temperature": 0.0,
+    "seed": 42,
+    "timestamp_utc": "2026-11-08T11:50:09.326611+00:00",
+    "results": [
+        {
+            "question_id": 1,
+            "question": "How many customers are in the database?",
+            "generated_sql": "SELECT COUNT(*) FROM customers",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "COUNT(*)"
+            ],
+            "rows": [
+                [
+                    30
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 2.531
+        },
+        {
+            "question_id": 2,
+            "question": "List the names of all customers from Pune.",
+            "generated_sql": "SELECT customer_name FROM customers WHERE city = 'Pune'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name"
+            ],
+            "rows": [
+                [
+                    "Kabir Shah"
+                ],
+                [
+                    "Aditya Verma"
+                ],
+                [
+                    "Omkar Pawar"
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 0.622
+        },
+        {
+            "question_id": 3,
+            "question": "How many products are in the Electronics category?",
+            "generated_sql": "SELECT COUNT(*) FROM products WHERE category = 'Electronics'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "COUNT(*)"
+            ],
+            "rows": [
+                [
+                    5
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 0.626
+        },
+        {
+            "question_id": 4,
+            "question": "Show the number of orders for each order status.",
+            "generated_sql": "SELECT status, COUNT(*) AS order_count FROM orders GROUP BY status",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "status",
+                "order_count"
+            ],
+            "rows": [
+                [
+                    "Cancelled",
+                    22
+                ],
+                [
+                    "Delivered",
+                    22
+                ],
+                [
+                    "Pending",
+                    20
+                ],
+                [
+                    "Processing",
+                    24
+                ],
+                [
+                    "Shipped",
+                    12
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 0.659
+        },
+        {
+            "question_id": 5,
+            "question": "Show the total quantity ordered for each product, excluding cancelled orders, sorted from highest to lowest.",
+            "generated_sql": "SELECT p.product_name, SUM(oi.quantity) AS total_quantity_ordered\nFROM products p\nJOIN order_items oi ON p.product_id = oi.product_id\nJOIN orders o ON oi.order_id = o.order_id\nWHERE o.status != 'Cancelled'\nGROUP BY p.product_name\nORDER BY total_quantity_ordered DESC",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "product_name",
+                "total_quantity_ordered"
+            ],
+            "rows": [
+                [
+                    "Coffee Maker",
+                    50
+                ],
+                [
+                    "Mixer Grinder",
+                    48
+                ],
+                [
+                    "Microwave",
+                    47
+                ],
+                [
+                    "Bookshelf",
+                    45
+                ],
+                [
+                    "Running Shoes",
+                    44
+                ],
+                [
+                    "Keyboard",
+                    41
+                ],
+                [
+                    "T-Shirt",
+                    34
+                ],
+                [
+                    "Wrist Watch",
+                    32
+                ],
+                [
+                    "Mouse",
+                    32
+                ],
+                [
+                    "Jeans",
+                    29
+                ],
+                [
+                    "Office Chair",
+                    28
+                ],
+                [
+                    "Study Desk",
+                    26
+                ],
+                [
+                    "Smartphone",
+                    24
+                ],
+                [
+                    "Notebook",
+                    24
+                ],
+                [
+                    "Pen Set",
+                    22
+                ],
+                [
+                    "Headphones",
+                    22
+                ],
+                [
+                    "Laptop",
+                    20
+                ],
+                [
+                    "Water Bottle",
+                    19
+                ],
+                [
+                    "Backpack",
+                    12
+                ],
+                [
+                    "Jacket",
+                    6
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 2.432
+        },
+        {
+            "question_id": 6,
+            "question": "How many orders were placed in March 2025?",
+            "generated_sql": "SELECT COUNT(*) FROM orders WHERE order_date LIKE '2025-03-%'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "COUNT(*)"
+            ],
+            "rows": [
+                [
+                    5
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 0.87
+        },
+        {
+            "question_id": 7,
+            "question": "List all customers from Mumbai who signed up during 2025.",
+            "generated_sql": "SELECT customer_name \nFROM customers \nWHERE city = 'Mumbai' AND signup_date BETWEEN '2025-01-01' AND '2025-12-31'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name"
+            ],
+            "rows": [
+                [
+                    "Aarav Sharma"
+                ],
+                [
+                    "Ananya Singh"
+                ],
+                [
+                    "Diya Joshi"
+                ],
+                [
+                    "Dev Malhotra"
+                ],
+                [
+                    "Yash Bhat"
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 1.718
+        },
+        {
+            "question_id": 8,
+            "question": "Show the names of customers who have placed at least one Delivered order.",
+            "generated_sql": "SELECT customer_name \nFROM customers \nWHERE customer_id IN (\n    SELECT customer_id \n    FROM orders \n    WHERE status = 'Delivered'\n)",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name"
+            ],
+            "rows": [
+                [
+                    "Priya Patel"
+                ],
+                [
+                    "Rohan Mehta"
+                ],
+                [
+                    "Ananya Singh"
+                ],
+                [
+                    "Ishaan Gupta"
+                ],
+                [
+                    "Sneha Rao"
+                ],
+                [
+                    "Kabir Shah"
+                ],
+                [
+                    "Arjun Nair"
+                ],
+                [
+                    "Aisha Khan"
+                ],
+                [
+                    "Reyansh Kulkarni"
+                ],
+                [
+                    "Saanvi Reddy"
+                ],
+                [
+                    "Aditya Verma"
+                ],
+                [
+                    "Kavya Menon"
+                ],
+                [
+                    "Tara Bose"
+                ],
+                [
+                    "Riya Chavan"
+                ],
+                [
+                    "Omkar Pawar"
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 1.257
+        },
+        {
+            "question_id": 9,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "generated_sql": "SELECT category, AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "category",
+                "average_price_rupees"
+            ],
+            "rows": [
+                [
+                    "Accessories",
+                    1633.3333333333333
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 1.189
+        },
+        {
+            "question_id": 10,
+            "question": "Find the five customers with the highest number of orders, excluding Cancelled orders. If customers have the same number of orders, rank them alphabetically by customer name.",
+            "generated_sql": "SELECT c.customer_name, COUNT(o.order_id) AS order_count\nFROM customers c\nJOIN orders o ON c.customer_id = o.customer_id\nWHERE o.status != 'Cancelled'\nGROUP BY c.customer_id\nORDER BY order_count DESC, c.customer_name ASC\nLIMIT 5",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name",
+                "order_count"
+            ],
+            "rows": [
+                [
+                    "Rohan Mehta",
+                    6
+                ],
+                [
+                    "Aditya Verma",
+                    5
+                ],
+                [
+                    "Arjun Nair",
+                    4
+                ],
+                [
+                    "Karan Sethi",
+                    4
+                ],
+                [
+                    "Maya Fernandes",
+                    4
+                ]
+            ],
+            "truncated": false,
+            "elapsed_seconds": 2.236
+        }
+    ]
+}

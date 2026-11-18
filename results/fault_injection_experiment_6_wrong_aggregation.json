@@ -1,0 +1,17 @@
+{
+    "experiment": "Fault Injection Experiment 4",
+    "fault_type": "Semantic error",
+    "timestamp_utc": "2026-11-16T10:15:57.994383+00:00",
+    "system_b": {
+        "success": true,
+        "sql_query": "\nSELECT category,\n       SUM(current_price_paise) / 100.0 AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category\n",
+        "error": null
+    },
+    "system_c": {
+        "success": true,
+        "sql_query": "SELECT category,\n       AVG(current_price_paise) / 100.0 AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category",
+        "answer": "1. category: Accessories | average_price_rupees: 1633.3333333333335\n2. category: Appliances | average_price_rupees: 6400.0\n3. category: Electronics | average_price_rupees: 21040.0\n4. category: Fashion | average_price_rupees: 2675.0\n5. category: Furniture | average_price_rupees: 8833.333333333334\n6. category: Stationery | average_price_rupees: 185.0",
+        "recovery_attempts": 1,
+        "error": null
+    }
+}

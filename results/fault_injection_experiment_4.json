@@ -1,0 +1,17 @@
+{
+    "experiment": "Fault Injection Experiment 4",
+    "fault_type": "Semantic error",
+    "timestamp_utc": "2026-11-16T08:05:19.187078+00:00",
+    "system_b": {
+        "success": true,
+        "sql_query": "SELECT COUNT(*) FROM products",
+        "error": null
+    },
+    "system_c": {
+        "success": true,
+        "sql_query": "SELECT COUNT(*) FROM products",
+        "answer": "20 customers are in the database.",
+        "recovery_attempts": 0,
+        "error": null
+    }
+}

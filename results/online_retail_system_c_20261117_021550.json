@@ -1,0 +1,301 @@
+{
+    "experiment": "System C - Online Retail Benchmark",
+    "summary": {
+        "total_questions": 10,
+        "successful_executions": 10,
+        "correct_answers": 9,
+        "execution_success_rate": 100.0,
+        "answer_accuracy": 90.0,
+        "total_recovery_attempts": 0,
+        "average_latency_seconds": 2.8678
+    },
+    "individual_results": [
+        {
+            "id": 1,
+            "difficulty": "easy",
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "actual_rows": [
+                [
+                    25900
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.5443,
+            "error": null
+        },
+        {
+            "id": 2,
+            "difficulty": "easy",
+            "question": "How many distinct countries are represented in the Online Retail dataset?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    38
+                ]
+            ],
+            "actual_rows": [
+                [
+                    38
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.0854,
+            "error": null
+        },
+        {
+            "id": 3,
+            "difficulty": "easy",
+            "question": "How many records have a missing CustomerID?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "actual_rows": [
+                [
+                    135080
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.3971,
+            "error": null
+        },
+        {
+            "id": 4,
+            "difficulty": "easy",
+            "question": "How many records belong to cancellation invoices?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    9288
+                ]
+            ],
+            "actual_rows": [
+                [
+                    9288
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.3695,
+            "error": null
+        },
+        {
+            "id": 5,
+            "difficulty": "medium",
+            "question": "How many non-cancellation records have a negative quantity?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "actual_rows": [
+                [
+                    1336
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.7911,
+            "error": null
+        },
+        {
+            "id": 6,
+            "difficulty": "medium",
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "actual_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.78,
+            "error": null
+        },
+        {
+            "id": 7,
+            "difficulty": "medium",
+            "question": "How many records were recorded in November 2011?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "actual_rows": [
+                [
+                    84711
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 4.1316,
+            "error": null
+        },
+        {
+            "id": 8,
+            "difficulty": "medium",
+            "question": "Show the number of positive-quantity records, non-cancellation returns, and cancellation records.",
+            "success": true,
+            "correct": false,
+            "result_matches": false,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    "Cancellation",
+                    9288
+                ],
+                [
+                    "Positive quantity",
+                    531285
+                ],
+                [
+                    "Return",
+                    1336
+                ]
+            ],
+            "actual_rows": [
+                [
+                    531285,
+                    1336,
+                    9288
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 4.2977,
+            "error": null
+        },
+        {
+            "id": 9,
+            "difficulty": "hard",
+            "question": "Which month had the highest number of records, and how many records were recorded in that month?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    "2011-11",
+                    84711
+                ]
+            ],
+            "actual_rows": [
+                [
+                    "2011-11",
+                    84711
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.951,
+            "error": null
+        },
+        {
+            "id": 10,
+            "difficulty": "hard",
+            "question": "How many distinct product codes are present in the dataset?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    4070
+                ]
+            ],
+            "actual_rows": [
+                [
+                    4070
+                ]
+            ],
+            "sql": null,
+            "recovery_attempts": 0,
+            "semantic_validated": true,
+            "latency_seconds": 2.3301,
+            "error": null
+        }
+    ]
+}

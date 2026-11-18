@@ -1,0 +1,1481 @@
+{
+    "experiment": "Day 23 - Repeated Fault Injection",
+    "timestamp_utc": "2026-11-16T17:08:54.685127+00:00",
+    "trials_per_scenario": 5,
+    "number_of_scenarios": 4,
+    "total_trials": 20,
+    "summary": {
+        "Wrong database table": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.8804
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 3.4748,
+                "total_recovery_attempts": 5,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Wrong date filter": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 0.1053
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 5.7977,
+                "total_recovery_attempts": 5,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Wrong aggregation": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.0009
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 1.4042,
+                "total_recovery_attempts": 5,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Missing unit conversion": {
+            "system_b": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 0,
+                "success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.0008
+            },
+            "system_c": {
+                "total_trials": 5,
+                "successful_trials": 5,
+                "correct_trials": 5,
+                "success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 1.5928,
+                "total_recovery_attempts": 5,
+                "average_recovery_attempts": 1.0
+            }
+        }
+    },
+    "individual_results": [
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 1,
+            "question": "How many customers are in the database?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    30
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 2.6711,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": [
+                    [
+                        20
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 4.8568,
+                "sql_query": "SELECT COUNT(*) FROM customers",
+                "rows": [
+                    [
+                        30
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 2,
+            "question": "How many customers are in the database?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    30
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.5447,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": [
+                    [
+                        20
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.1174,
+                "sql_query": "SELECT COUNT(*) FROM customers",
+                "rows": [
+                    [
+                        30
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 3,
+            "question": "How many customers are in the database?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    30
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.394,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": [
+                    [
+                        20
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.1317,
+                "sql_query": "SELECT COUNT(*) FROM customers",
+                "rows": [
+                    [
+                        30
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 4,
+            "question": "How many customers are in the database?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    30
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3952,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": [
+                    [
+                        20
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.137,
+                "sql_query": "SELECT COUNT(*) FROM customers",
+                "rows": [
+                    [
+                        30
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong database table",
+            "benchmark_id": 1,
+            "trial": 5,
+            "question": "How many customers are in the database?",
+            "faulty_sql": "SELECT COUNT(*) FROM products",
+            "expected_rows": [
+                [
+                    30
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3969,
+                "sql_query": "\n            SELECT COUNT(*) FROM products\n        ",
+                "rows": [
+                    [
+                        20
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.1311,
+                "sql_query": "SELECT COUNT(*) FROM customers",
+                "rows": [
+                    [
+                        30
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 6,
+            "trial": 1,
+            "question": "How many orders were placed in March 2025?",
+            "faulty_sql": "SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'",
+            "expected_rows": [
+                [
+                    5
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2321,
+                "sql_query": "\n            SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'\n        ",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 6.094,
+                "sql_query": "SELECT COUNT(*) FROM orders\nWHERE order_date >= '2025-03-01'\nAND order_date < '2025-04-01'",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 6,
+            "trial": 2,
+            "question": "How many orders were placed in March 2025?",
+            "faulty_sql": "SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'",
+            "expected_rows": [
+                [
+                    5
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0732,
+                "sql_query": "\n            SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'\n        ",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 5.6819,
+                "sql_query": "SELECT COUNT(*) FROM orders\nWHERE order_date >= '2025-03-01'\nAND order_date < '2025-04-01'",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 6,
+            "trial": 3,
+            "question": "How many orders were placed in March 2025?",
+            "faulty_sql": "SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'",
+            "expected_rows": [
+                [
+                    5
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0735,
+                "sql_query": "\n            SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'\n        ",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 5.7089,
+                "sql_query": "SELECT COUNT(*) FROM orders\nWHERE order_date >= '2025-03-01'\nAND order_date < '2025-04-01'",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 6,
+            "trial": 4,
+            "question": "How many orders were placed in March 2025?",
+            "faulty_sql": "SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'",
+            "expected_rows": [
+                [
+                    5
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0737,
+                "sql_query": "\n            SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'\n        ",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 5.7378,
+                "sql_query": "SELECT COUNT(*) FROM orders\nWHERE order_date >= '2025-03-01'\nAND order_date < '2025-04-01'",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong date filter",
+            "benchmark_id": 6,
+            "trial": 5,
+            "question": "How many orders were placed in March 2025?",
+            "faulty_sql": "SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'",
+            "expected_rows": [
+                [
+                    5
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0742,
+                "sql_query": "\n            SELECT COUNT(*) FROM orders\n            WHERE order_date >= '2025-04-01'\n            AND order_date < '2025-05-01'\n        ",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 5.7657,
+                "sql_query": "SELECT COUNT(*) FROM orders\nWHERE order_date >= '2025-03-01'\nAND order_date < '2025-04-01'",
+                "rows": [
+                    [
+                        5
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong aggregation",
+            "benchmark_id": 9,
+            "trial": 1,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0008,
+                "sql_query": "\n            SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        4900.0
+                    ],
+                    [
+                        "Appliances",
+                        19200.0
+                    ],
+                    [
+                        "Electronics",
+                        105200.0
+                    ],
+                    [
+                        "Fashion",
+                        10700.0
+                    ],
+                    [
+                        "Furniture",
+                        26500.0
+                    ],
+                    [
+                        "Stationery",
+                        370.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.51,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise) / 100.0\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333335
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong aggregation",
+            "benchmark_id": 9,
+            "trial": 2,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0009,
+                "sql_query": "\n            SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        4900.0
+                    ],
+                    [
+                        "Appliances",
+                        19200.0
+                    ],
+                    [
+                        "Electronics",
+                        105200.0
+                    ],
+                    [
+                        "Fashion",
+                        10700.0
+                    ],
+                    [
+                        "Furniture",
+                        26500.0
+                    ],
+                    [
+                        "Stationery",
+                        370.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.1259,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise) / 100.0\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333335
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong aggregation",
+            "benchmark_id": 9,
+            "trial": 3,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0009,
+                "sql_query": "\n            SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        4900.0
+                    ],
+                    [
+                        "Appliances",
+                        19200.0
+                    ],
+                    [
+                        "Electronics",
+                        105200.0
+                    ],
+                    [
+                        "Fashion",
+                        10700.0
+                    ],
+                    [
+                        "Furniture",
+                        26500.0
+                    ],
+                    [
+                        "Stationery",
+                        370.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.1231,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise) / 100.0\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333335
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong aggregation",
+            "benchmark_id": 9,
+            "trial": 4,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0009,
+                "sql_query": "\n            SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        4900.0
+                    ],
+                    [
+                        "Appliances",
+                        19200.0
+                    ],
+                    [
+                        "Electronics",
+                        105200.0
+                    ],
+                    [
+                        "Fashion",
+                        10700.0
+                    ],
+                    [
+                        "Furniture",
+                        26500.0
+                    ],
+                    [
+                        "Stationery",
+                        370.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.1325,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise) / 100.0\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333335
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Wrong aggregation",
+            "benchmark_id": 9,
+            "trial": 5,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.001,
+                "sql_query": "\n            SELECT category,\n                   SUM(current_price_paise) / 100.0\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        4900.0
+                    ],
+                    [
+                        "Appliances",
+                        19200.0
+                    ],
+                    [
+                        "Electronics",
+                        105200.0
+                    ],
+                    [
+                        "Fashion",
+                        10700.0
+                    ],
+                    [
+                        "Furniture",
+                        26500.0
+                    ],
+                    [
+                        "Stationery",
+                        370.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.1293,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise) / 100.0\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333335
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Missing unit conversion",
+            "benchmark_id": 9,
+            "trial": 1,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0008,
+                "sql_query": "\n            SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        163333.33333333334
+                    ],
+                    [
+                        "Appliances",
+                        640000.0
+                    ],
+                    [
+                        "Electronics",
+                        2104000.0
+                    ],
+                    [
+                        "Fashion",
+                        267500.0
+                    ],
+                    [
+                        "Furniture",
+                        883333.3333333334
+                    ],
+                    [
+                        "Stationery",
+                        18500.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.709,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333333
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Missing unit conversion",
+            "benchmark_id": 9,
+            "trial": 2,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0008,
+                "sql_query": "\n            SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        163333.33333333334
+                    ],
+                    [
+                        "Appliances",
+                        640000.0
+                    ],
+                    [
+                        "Electronics",
+                        2104000.0
+                    ],
+                    [
+                        "Fashion",
+                        267500.0
+                    ],
+                    [
+                        "Furniture",
+                        883333.3333333334
+                    ],
+                    [
+                        "Stationery",
+                        18500.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.3068,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333333
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Missing unit conversion",
+            "benchmark_id": 9,
+            "trial": 3,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0008,
+                "sql_query": "\n            SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        163333.33333333334
+                    ],
+                    [
+                        "Appliances",
+                        640000.0
+                    ],
+                    [
+                        "Electronics",
+                        2104000.0
+                    ],
+                    [
+                        "Fashion",
+                        267500.0
+                    ],
+                    [
+                        "Furniture",
+                        883333.3333333334
+                    ],
+                    [
+                        "Stationery",
+                        18500.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.3131,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333333
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Missing unit conversion",
+            "benchmark_id": 9,
+            "trial": 4,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0008,
+                "sql_query": "\n            SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        163333.33333333334
+                    ],
+                    [
+                        "Appliances",
+                        640000.0
+                    ],
+                    [
+                        "Electronics",
+                        2104000.0
+                    ],
+                    [
+                        "Fashion",
+                        267500.0
+                    ],
+                    [
+                        "Furniture",
+                        883333.3333333334
+                    ],
+                    [
+                        "Stationery",
+                        18500.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.3197,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333333
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Missing unit conversion",
+            "benchmark_id": 9,
+            "trial": 5,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "faulty_sql": "SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category",
+            "expected_rows": [
+                [
+                    "Accessories",
+                    1633.3333333333335
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.0007,
+                "sql_query": "\n            SELECT category,\n                   AVG(current_price_paise)\n            FROM products\n            GROUP BY category\n            ORDER BY category\n        ",
+                "rows": [
+                    [
+                        "Accessories",
+                        163333.33333333334
+                    ],
+                    [
+                        "Appliances",
+                        640000.0
+                    ],
+                    [
+                        "Electronics",
+                        2104000.0
+                    ],
+                    [
+                        "Fashion",
+                        267500.0
+                    ],
+                    [
+                        "Furniture",
+                        883333.3333333334
+                    ],
+                    [
+                        "Stationery",
+                        18500.0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.3155,
+                "sql_query": "SELECT category,\n       AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category\nORDER BY category",
+                "rows": [
+                    [
+                        "Accessories",
+                        1633.3333333333333
+                    ],
+                    [
+                        "Appliances",
+                        6400.0
+                    ],
+                    [
+                        "Electronics",
+                        21040.0
+                    ],
+                    [
+                        "Fashion",
+                        2675.0
+                    ],
+                    [
+                        "Furniture",
+                        8833.333333333334
+                    ],
+                    [
+                        "Stationery",
+                        185.0
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        }
+    ]
+}

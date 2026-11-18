@@ -1,0 +1,30 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# macOS
+.DS_Store
+
+# PyCharm
+.idea/
+
+# Local databases and datasets
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/*.xlsx
+data/*.csv
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Logs
+*.log

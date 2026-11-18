@@ -1,0 +1,395 @@
+{
+    "experiment": "Multi-Agent System B",
+    "model": "qwen2.5:7b",
+    "temperature": 0.0,
+    "seed": 42,
+    "timestamp_utc": "2026-11-16T09:17:38.697323+00:00",
+    "results": [
+        {
+            "question_id": 1,
+            "question": "How many customers are in the database?",
+            "generated_sql": "SELECT COUNT(*) FROM customers",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "COUNT(*)"
+            ],
+            "rows": [
+                [
+                    30
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "30 customers are in the database.",
+            "elapsed_seconds": 0.681
+        },
+        {
+            "question_id": 2,
+            "question": "List the names of all customers from Pune.",
+            "generated_sql": "SELECT customer_name FROM customers WHERE city = 'Pune'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name"
+            ],
+            "rows": [
+                [
+                    "Kabir Shah"
+                ],
+                [
+                    "Aditya Verma"
+                ],
+                [
+                    "Omkar Pawar"
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. Kabir Shah\n2. Aditya Verma\n3. Omkar Pawar",
+            "elapsed_seconds": 0.64
+        },
+        {
+            "question_id": 3,
+            "question": "How many products are in the Electronics category?",
+            "generated_sql": "SELECT COUNT(*) FROM products WHERE category = 'Electronics'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "COUNT(*)"
+            ],
+            "rows": [
+                [
+                    5
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "There are 5 products in the Electronics category.",
+            "elapsed_seconds": 1.186
+        },
+        {
+            "question_id": 4,
+            "question": "Show the number of orders for each order status.",
+            "generated_sql": "SELECT status, COUNT(*) AS order_count FROM orders GROUP BY status",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "status",
+                "order_count"
+            ],
+            "rows": [
+                [
+                    "Cancelled",
+                    22
+                ],
+                [
+                    "Delivered",
+                    22
+                ],
+                [
+                    "Pending",
+                    20
+                ],
+                [
+                    "Processing",
+                    24
+                ],
+                [
+                    "Shipped",
+                    12
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. status: Cancelled | order_count: 22\n2. status: Delivered | order_count: 22\n3. status: Pending | order_count: 20\n4. status: Processing | order_count: 24\n5. status: Shipped | order_count: 12",
+            "elapsed_seconds": 0.681
+        },
+        {
+            "question_id": 5,
+            "question": "Show the total quantity ordered for each product, excluding cancelled orders, sorted from highest to lowest.",
+            "generated_sql": "SELECT p.product_name, SUM(oi.quantity) AS total_quantity_ordered\nFROM products p\nJOIN order_items oi ON p.product_id = oi.product_id\nJOIN orders o ON oi.order_id = o.order_id\nWHERE o.status != 'Cancelled'\nGROUP BY p.product_name\nORDER BY total_quantity_ordered DESC",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "product_name",
+                "total_quantity_ordered"
+            ],
+            "rows": [
+                [
+                    "Coffee Maker",
+                    50
+                ],
+                [
+                    "Mixer Grinder",
+                    48
+                ],
+                [
+                    "Microwave",
+                    47
+                ],
+                [
+                    "Bookshelf",
+                    45
+                ],
+                [
+                    "Running Shoes",
+                    44
+                ],
+                [
+                    "Keyboard",
+                    41
+                ],
+                [
+                    "T-Shirt",
+                    34
+                ],
+                [
+                    "Wrist Watch",
+                    32
+                ],
+                [
+                    "Mouse",
+                    32
+                ],
+                [
+                    "Jeans",
+                    29
+                ],
+                [
+                    "Office Chair",
+                    28
+                ],
+                [
+                    "Study Desk",
+                    26
+                ],
+                [
+                    "Smartphone",
+                    24
+                ],
+                [
+                    "Notebook",
+                    24
+                ],
+                [
+                    "Pen Set",
+                    22
+                ],
+                [
+                    "Headphones",
+                    22
+                ],
+                [
+                    "Laptop",
+                    20
+                ],
+                [
+                    "Water Bottle",
+                    19
+                ],
+                [
+                    "Backpack",
+                    12
+                ],
+                [
+                    "Jacket",
+                    6
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. product_name: Coffee Maker | total_quantity_ordered: 50\n2. product_name: Mixer Grinder | total_quantity_ordered: 48\n3. product_name: Microwave | total_quantity_ordered: 47\n4. product_name: Bookshelf | total_quantity_ordered: 45\n5. product_name: Running Shoes | total_quantity_ordered: 44\n6. product_name: Keyboard | total_quantity_ordered: 41\n7. product_name: T-Shirt | total_quantity_ordered: 34\n8. product_name: Wrist Watch | total_quantity_ordered: 32\n9. product_name: Mouse | total_quantity_ordered: 32\n10. product_name: Jeans | total_quantity_ordered: 29\n11. product_name: Office Chair | total_quantity_ordered: 28\n12. product_name: Study Desk | total_quantity_ordered: 26\n13. product_name: Smartphone | total_quantity_ordered: 24\n14. product_name: Notebook | total_quantity_ordered: 24\n15. product_name: Pen Set | total_quantity_ordered: 22\n16. product_name: Headphones | total_quantity_ordered: 22\n17. product_name: Laptop | total_quantity_ordered: 20\n18. product_name: Water Bottle | total_quantity_ordered: 19\n19. product_name: Backpack | total_quantity_ordered: 12\n20. product_name: Jacket | total_quantity_ordered: 6",
+            "elapsed_seconds": 2.448
+        },
+        {
+            "question_id": 6,
+            "question": "How many orders were placed in March 2025?",
+            "generated_sql": "SELECT COUNT(*) FROM orders WHERE order_date LIKE '2025-03-%'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "COUNT(*)"
+            ],
+            "rows": [
+                [
+                    5
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "5",
+            "elapsed_seconds": 1.121
+        },
+        {
+            "question_id": 7,
+            "question": "List all customers from Mumbai who signed up during 2025.",
+            "generated_sql": "SELECT customer_name \nFROM customers \nWHERE city = 'Mumbai' AND signup_date BETWEEN '2025-01-01' AND '2025-12-31'",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name"
+            ],
+            "rows": [
+                [
+                    "Aarav Sharma"
+                ],
+                [
+                    "Ananya Singh"
+                ],
+                [
+                    "Diya Joshi"
+                ],
+                [
+                    "Dev Malhotra"
+                ],
+                [
+                    "Yash Bhat"
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. Aarav Sharma\n2. Ananya Singh\n3. Diya Joshi\n4. Dev Malhotra\n5. Yash Bhat",
+            "elapsed_seconds": 1.739
+        },
+        {
+            "question_id": 8,
+            "question": "Show the names of customers who have placed at least one Delivered order.",
+            "generated_sql": "SELECT customer_name \nFROM customers \nWHERE customer_id IN (\n    SELECT customer_id \n    FROM orders \n    WHERE status = 'Delivered'\n)",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name"
+            ],
+            "rows": [
+                [
+                    "Priya Patel"
+                ],
+                [
+                    "Rohan Mehta"
+                ],
+                [
+                    "Ananya Singh"
+                ],
+                [
+                    "Ishaan Gupta"
+                ],
+                [
+                    "Sneha Rao"
+                ],
+                [
+                    "Kabir Shah"
+                ],
+                [
+                    "Arjun Nair"
+                ],
+                [
+                    "Aisha Khan"
+                ],
+                [
+                    "Reyansh Kulkarni"
+                ],
+                [
+                    "Saanvi Reddy"
+                ],
+                [
+                    "Aditya Verma"
+                ],
+                [
+                    "Kavya Menon"
+                ],
+                [
+                    "Tara Bose"
+                ],
+                [
+                    "Riya Chavan"
+                ],
+                [
+                    "Omkar Pawar"
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. Priya Patel\n2. Rohan Mehta\n3. Ananya Singh\n4. Ishaan Gupta\n5. Sneha Rao\n6. Kabir Shah\n7. Arjun Nair\n8. Aisha Khan\n9. Reyansh Kulkarni\n10. Saanvi Reddy\n11. Aditya Verma\n12. Kavya Menon\n13. Tara Bose\n14. Riya Chavan\n15. Omkar Pawar",
+            "elapsed_seconds": 1.274
+        },
+        {
+            "question_id": 9,
+            "question": "Show the average current price of products in each category, in rupees.",
+            "generated_sql": "SELECT category, AVG(current_price_paise / 100.0) AS average_price_rupees\nFROM products\nGROUP BY category",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "category",
+                "average_price_rupees"
+            ],
+            "rows": [
+                [
+                    "Accessories",
+                    1633.3333333333333
+                ],
+                [
+                    "Appliances",
+                    6400.0
+                ],
+                [
+                    "Electronics",
+                    21040.0
+                ],
+                [
+                    "Fashion",
+                    2675.0
+                ],
+                [
+                    "Furniture",
+                    8833.333333333334
+                ],
+                [
+                    "Stationery",
+                    185.0
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. category: Accessories | average_price_rupees: 1633.3333333333333\n2. category: Appliances | average_price_rupees: 6400.0\n3. category: Electronics | average_price_rupees: 21040.0\n4. category: Fashion | average_price_rupees: 2675.0\n5. category: Furniture | average_price_rupees: 8833.333333333334\n6. category: Stationery | average_price_rupees: 185.0",
+            "elapsed_seconds": 1.198
+        },
+        {
+            "question_id": 10,
+            "question": "Find the five customers with the highest number of orders, excluding Cancelled orders. If customers have the same number of orders, rank them alphabetically by customer name.",
+            "generated_sql": "SELECT c.customer_name, COUNT(o.order_id) AS order_count\nFROM customers c\nJOIN orders o ON c.customer_id = o.customer_id\nWHERE o.status != 'Cancelled'\nGROUP BY c.customer_id\nORDER BY order_count DESC, c.customer_name ASC\nLIMIT 5",
+            "execution_success": true,
+            "execution_error_type": null,
+            "execution_error": null,
+            "columns": [
+                "customer_name",
+                "order_count"
+            ],
+            "rows": [
+                [
+                    "Rohan Mehta",
+                    6
+                ],
+                [
+                    "Aditya Verma",
+                    5
+                ],
+                [
+                    "Arjun Nair",
+                    4
+                ],
+                [
+                    "Karan Sethi",
+                    4
+                ],
+                [
+                    "Maya Fernandes",
+                    4
+                ]
+            ],
+            "truncated": false,
+            "final_answer": "1. customer_name: Rohan Mehta | order_count: 6\n2. customer_name: Aditya Verma | order_count: 5\n3. customer_name: Arjun Nair | order_count: 4\n4. customer_name: Karan Sethi | order_count: 4\n5. customer_name: Maya Fernandes | order_count: 4",
+            "elapsed_seconds": 2.248
+        }
+    ]
+}

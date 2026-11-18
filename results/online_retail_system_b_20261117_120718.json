@@ -1,0 +1,335 @@
+{
+    "experiment": "System B - Online Retail Benchmark",
+    "summary": {
+        "total_questions": 10,
+        "successful_executions": 10,
+        "correct_answers": 10,
+        "execution_success_rate": 100.0,
+        "answer_accuracy": 100.0,
+        "total_recovery_attempts": 0,
+        "average_latency_seconds": 1.6662
+    },
+    "individual_results": [
+        {
+            "id": 1,
+            "difficulty": "easy",
+            "question": "How many distinct invoices are recorded in the Online Retail dataset?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "actual_rows": [
+                [
+                    25900
+                ]
+            ],
+            "columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "sql": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.3062,
+            "error": null
+        },
+        {
+            "id": 2,
+            "difficulty": "easy",
+            "question": "How many distinct countries are represented in the Online Retail dataset?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    38
+                ]
+            ],
+            "actual_rows": [
+                [
+                    38
+                ]
+            ],
+            "columns": [
+                "COUNT(DISTINCT Country)"
+            ],
+            "sql": "SELECT COUNT(DISTINCT Country) FROM online_retail",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 0.9412,
+            "error": null
+        },
+        {
+            "id": 3,
+            "difficulty": "easy",
+            "question": "How many records have a missing CustomerID?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "actual_rows": [
+                [
+                    135080
+                ]
+            ],
+            "columns": [
+                "COUNT(*)"
+            ],
+            "sql": "SELECT COUNT(*) FROM online_retail WHERE CustomerID IS NULL",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.2712,
+            "error": null
+        },
+        {
+            "id": 4,
+            "difficulty": "easy",
+            "question": "How many records belong to cancellation invoices?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    9288
+                ]
+            ],
+            "actual_rows": [
+                [
+                    9288
+                ]
+            ],
+            "columns": [
+                "COUNT(*)"
+            ],
+            "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo LIKE 'C%'",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.2244,
+            "error": null
+        },
+        {
+            "id": 5,
+            "difficulty": "medium",
+            "question": "How many non-cancellation records have a negative quantity?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    1336
+                ]
+            ],
+            "actual_rows": [
+                [
+                    1336
+                ]
+            ],
+            "columns": [
+                "COUNT(*)"
+            ],
+            "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo NOT LIKE 'C%' AND Quantity < 0",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.651,
+            "error": null
+        },
+        {
+            "id": 6,
+            "difficulty": "medium",
+            "question": "Show the five countries with the highest number of records, sorted from highest to lowest record count. If two countries have the same count, sort alphabetically by country.",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "actual_rows": [
+                [
+                    "United Kingdom",
+                    495478
+                ],
+                [
+                    "Germany",
+                    9495
+                ],
+                [
+                    "France",
+                    8557
+                ],
+                [
+                    "EIRE",
+                    8196
+                ],
+                [
+                    "Spain",
+                    2533
+                ]
+            ],
+            "columns": [
+                "Country",
+                "RecordCount"
+            ],
+            "sql": "SELECT Country, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Country\nORDER BY RecordCount DESC, Country ASC\nLIMIT 5",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.4025,
+            "error": null
+        },
+        {
+            "id": 7,
+            "difficulty": "medium",
+            "question": "How many records were recorded in November 2011?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    84711
+                ]
+            ],
+            "actual_rows": [
+                [
+                    84711
+                ]
+            ],
+            "columns": [
+                "COUNT(*)"
+            ],
+            "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 2.9719,
+            "error": null
+        },
+        {
+            "id": 8,
+            "difficulty": "medium",
+            "question": "Show the number of positive-quantity records, non-cancellation returns, and cancellation records.",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    "Cancellation",
+                    9288
+                ],
+                [
+                    "Positive quantity",
+                    531285
+                ],
+                [
+                    "Return",
+                    1336
+                ]
+            ],
+            "actual_rows": [
+                [
+                    531285,
+                    1336,
+                    9288
+                ]
+            ],
+            "columns": [
+                "PositiveQuantityRecords",
+                "NonCancellationReturns",
+                "CancellationRecords"
+            ],
+            "sql": "SELECT \n    COUNT(CASE WHEN Quantity > 0 THEN 1 END) AS PositiveQuantityRecords,\n    COUNT(CASE WHEN Quantity < 0 AND InvoiceNo NOT LIKE 'C%' THEN 1 END) AS NonCancellationReturns,\n    COUNT(CASE WHEN InvoiceNo LIKE 'C%' THEN 1 END) AS CancellationRecords\nFROM \n    online_retail",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 2.9586,
+            "error": null
+        },
+        {
+            "id": 9,
+            "difficulty": "hard",
+            "question": "Which month had the highest number of records, and how many records were recorded in that month?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    "2011-11",
+                    84711
+                ]
+            ],
+            "actual_rows": [
+                [
+                    "2011-11",
+                    84711
+                ]
+            ],
+            "columns": [
+                "Month",
+                "RecordCount"
+            ],
+            "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Month\nORDER BY RecordCount DESC\nLIMIT 1;",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.7372,
+            "error": null
+        },
+        {
+            "id": 10,
+            "difficulty": "hard",
+            "question": "How many distinct product codes are present in the dataset?",
+            "success": true,
+            "correct": true,
+            "result_matches": true,
+            "ordering_matches": true,
+            "expected_rows": [
+                [
+                    4070
+                ]
+            ],
+            "actual_rows": [
+                [
+                    4070
+                ]
+            ],
+            "columns": [
+                "COUNT(DISTINCT StockCode)"
+            ],
+            "sql": "SELECT COUNT(DISTINCT StockCode) FROM online_retail",
+            "recovery_attempts": 0,
+            "semantic_validation_used": false,
+            "latency_seconds": 1.198,
+            "error": null
+        }
+    ]
+}

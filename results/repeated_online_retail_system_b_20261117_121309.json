@@ -1,0 +1,453 @@
+{
+    "experiment": "Repeated Online Retail Benchmark - System B",
+    "summary": {
+        "system": "System B",
+        "repetitions": 5,
+        "questions_per_repetition": 10,
+        "total_evaluations": 50,
+        "successful_executions": 50,
+        "correct_answers": 50,
+        "execution_success_rate": 100.0,
+        "answer_accuracy": 100.0,
+        "average_latency_seconds": 1.6714,
+        "minimum_latency_seconds": 0.9402,
+        "maximum_latency_seconds": 2.993
+    },
+    "runs": [
+        {
+            "repetition": 1,
+            "successful_executions": 10,
+            "correct_answers": 10,
+            "results": [
+                {
+                    "id": 1,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.8537,
+                    "sql": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 2,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 0.9402,
+                    "sql": "SELECT COUNT(DISTINCT Country) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 3,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2853,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE CustomerID IS NULL",
+                    "error": null
+                },
+                {
+                    "id": 4,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2312,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo LIKE 'C%'",
+                    "error": null
+                },
+                {
+                    "id": 5,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.662,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo NOT LIKE 'C%' AND Quantity < 0",
+                    "error": null
+                },
+                {
+                    "id": 6,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.399,
+                    "sql": "SELECT Country, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Country\nORDER BY RecordCount DESC, Country ASC\nLIMIT 5",
+                    "error": null
+                },
+                {
+                    "id": 7,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9712,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'",
+                    "error": null
+                },
+                {
+                    "id": 8,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9558,
+                    "sql": "SELECT \n    COUNT(CASE WHEN Quantity > 0 THEN 1 END) AS PositiveQuantityRecords,\n    COUNT(CASE WHEN Quantity < 0 AND InvoiceNo NOT LIKE 'C%' THEN 1 END) AS NonCancellationReturns,\n    COUNT(CASE WHEN InvoiceNo LIKE 'C%' THEN 1 END) AS CancellationRecords\nFROM \n    online_retail",
+                    "error": null
+                },
+                {
+                    "id": 9,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.7378,
+                    "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Month\nORDER BY RecordCount DESC\nLIMIT 1;",
+                    "error": null
+                },
+                {
+                    "id": 10,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2012,
+                    "sql": "SELECT COUNT(DISTINCT StockCode) FROM online_retail",
+                    "error": null
+                }
+            ]
+        },
+        {
+            "repetition": 2,
+            "successful_executions": 10,
+            "correct_answers": 10,
+            "results": [
+                {
+                    "id": 1,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2192,
+                    "sql": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 2,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 0.941,
+                    "sql": "SELECT COUNT(DISTINCT Country) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 3,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2618,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE CustomerID IS NULL",
+                    "error": null
+                },
+                {
+                    "id": 4,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2204,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo LIKE 'C%'",
+                    "error": null
+                },
+                {
+                    "id": 5,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.6489,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo NOT LIKE 'C%' AND Quantity < 0",
+                    "error": null
+                },
+                {
+                    "id": 6,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.395,
+                    "sql": "SELECT Country, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Country\nORDER BY RecordCount DESC, Country ASC\nLIMIT 5",
+                    "error": null
+                },
+                {
+                    "id": 7,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9871,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'",
+                    "error": null
+                },
+                {
+                    "id": 8,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9759,
+                    "sql": "SELECT \n    COUNT(CASE WHEN Quantity > 0 THEN 1 END) AS PositiveQuantityRecords,\n    COUNT(CASE WHEN Quantity < 0 AND InvoiceNo NOT LIKE 'C%' THEN 1 END) AS NonCancellationReturns,\n    COUNT(CASE WHEN InvoiceNo LIKE 'C%' THEN 1 END) AS CancellationRecords\nFROM \n    online_retail",
+                    "error": null
+                },
+                {
+                    "id": 9,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.7556,
+                    "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Month\nORDER BY RecordCount DESC\nLIMIT 1;",
+                    "error": null
+                },
+                {
+                    "id": 10,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.1947,
+                    "sql": "SELECT COUNT(DISTINCT StockCode) FROM online_retail",
+                    "error": null
+                }
+            ]
+        },
+        {
+            "repetition": 3,
+            "successful_executions": 10,
+            "correct_answers": 10,
+            "results": [
+                {
+                    "id": 1,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.1084,
+                    "sql": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 2,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 0.946,
+                    "sql": "SELECT COUNT(DISTINCT Country) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 3,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2751,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE CustomerID IS NULL",
+                    "error": null
+                },
+                {
+                    "id": 4,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2326,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo LIKE 'C%'",
+                    "error": null
+                },
+                {
+                    "id": 5,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.658,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo NOT LIKE 'C%' AND Quantity < 0",
+                    "error": null
+                },
+                {
+                    "id": 6,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.4013,
+                    "sql": "SELECT Country, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Country\nORDER BY RecordCount DESC, Country ASC\nLIMIT 5",
+                    "error": null
+                },
+                {
+                    "id": 7,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.989,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'",
+                    "error": null
+                },
+                {
+                    "id": 8,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9707,
+                    "sql": "SELECT \n    COUNT(CASE WHEN Quantity > 0 THEN 1 END) AS PositiveQuantityRecords,\n    COUNT(CASE WHEN Quantity < 0 AND InvoiceNo NOT LIKE 'C%' THEN 1 END) AS NonCancellationReturns,\n    COUNT(CASE WHEN InvoiceNo LIKE 'C%' THEN 1 END) AS CancellationRecords\nFROM \n    online_retail",
+                    "error": null
+                },
+                {
+                    "id": 9,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.7564,
+                    "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Month\nORDER BY RecordCount DESC\nLIMIT 1;",
+                    "error": null
+                },
+                {
+                    "id": 10,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2126,
+                    "sql": "SELECT COUNT(DISTINCT StockCode) FROM online_retail",
+                    "error": null
+                }
+            ]
+        },
+        {
+            "repetition": 4,
+            "successful_executions": 10,
+            "correct_answers": 10,
+            "results": [
+                {
+                    "id": 1,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.1451,
+                    "sql": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 2,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 0.9415,
+                    "sql": "SELECT COUNT(DISTINCT Country) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 3,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2744,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE CustomerID IS NULL",
+                    "error": null
+                },
+                {
+                    "id": 4,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2287,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo LIKE 'C%'",
+                    "error": null
+                },
+                {
+                    "id": 5,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.6482,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo NOT LIKE 'C%' AND Quantity < 0",
+                    "error": null
+                },
+                {
+                    "id": 6,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.3783,
+                    "sql": "SELECT Country, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Country\nORDER BY RecordCount DESC, Country ASC\nLIMIT 5",
+                    "error": null
+                },
+                {
+                    "id": 7,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.993,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'",
+                    "error": null
+                },
+                {
+                    "id": 8,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9726,
+                    "sql": "SELECT \n    COUNT(CASE WHEN Quantity > 0 THEN 1 END) AS PositiveQuantityRecords,\n    COUNT(CASE WHEN Quantity < 0 AND InvoiceNo NOT LIKE 'C%' THEN 1 END) AS NonCancellationReturns,\n    COUNT(CASE WHEN InvoiceNo LIKE 'C%' THEN 1 END) AS CancellationRecords\nFROM \n    online_retail",
+                    "error": null
+                },
+                {
+                    "id": 9,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.7627,
+                    "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Month\nORDER BY RecordCount DESC\nLIMIT 1;",
+                    "error": null
+                },
+                {
+                    "id": 10,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2059,
+                    "sql": "SELECT COUNT(DISTINCT StockCode) FROM online_retail",
+                    "error": null
+                }
+            ]
+        },
+        {
+            "repetition": 5,
+            "successful_executions": 10,
+            "correct_answers": 10,
+            "results": [
+                {
+                    "id": 1,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.1455,
+                    "sql": "SELECT COUNT(DISTINCT InvoiceNo) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 2,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 0.9457,
+                    "sql": "SELECT COUNT(DISTINCT Country) FROM online_retail",
+                    "error": null
+                },
+                {
+                    "id": 3,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2631,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE CustomerID IS NULL",
+                    "error": null
+                },
+                {
+                    "id": 4,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2437,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo LIKE 'C%'",
+                    "error": null
+                },
+                {
+                    "id": 5,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.6692,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceNo NOT LIKE 'C%' AND Quantity < 0",
+                    "error": null
+                },
+                {
+                    "id": 6,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.4175,
+                    "sql": "SELECT Country, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Country\nORDER BY RecordCount DESC, Country ASC\nLIMIT 5",
+                    "error": null
+                },
+                {
+                    "id": 7,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9901,
+                    "sql": "SELECT COUNT(*) FROM online_retail WHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'",
+                    "error": null
+                },
+                {
+                    "id": 8,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 2.9809,
+                    "sql": "SELECT \n    COUNT(CASE WHEN Quantity > 0 THEN 1 END) AS PositiveQuantityRecords,\n    COUNT(CASE WHEN Quantity < 0 AND InvoiceNo NOT LIKE 'C%' THEN 1 END) AS NonCancellationReturns,\n    COUNT(CASE WHEN InvoiceNo LIKE 'C%' THEN 1 END) AS CancellationRecords\nFROM \n    online_retail",
+                    "error": null
+                },
+                {
+                    "id": 9,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.7684,
+                    "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, COUNT(*) AS RecordCount\nFROM online_retail\nGROUP BY Month\nORDER BY RecordCount DESC\nLIMIT 1;",
+                    "error": null
+                },
+                {
+                    "id": 10,
+                    "success": true,
+                    "correct": true,
+                    "latency_seconds": 1.2102,
+                    "sql": "SELECT COUNT(DISTINCT StockCode) FROM online_retail",
+                    "error": null
+                }
+            ]
+        }
+    ]
+}

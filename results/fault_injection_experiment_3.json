@@ -1,0 +1,17 @@
+{
+    "experiment": "Fault Injection Experiment 3",
+    "fault_type": "SQL syntax error",
+    "timestamp_utc": "2026-11-15T19:52:56.905785+00:00",
+    "system_b": {
+        "success": false,
+        "sql_query": "SELEC COUNT(*) FROM customers",
+        "error": "Only SELECT queries and CTE queries are allowed."
+    },
+    "system_c": {
+        "success": true,
+        "sql_query": "SELECT COUNT(*) FROM customers",
+        "answer": "30 customers are in the database.",
+        "recovery_attempts": 1,
+        "error": null
+    }
+}

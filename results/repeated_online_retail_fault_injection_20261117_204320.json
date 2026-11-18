@@ -1,0 +1,5212 @@
+{
+    "experiment": "Day 27 - Online Retail Repeated Fault Injection",
+    "timestamp_utc": "2026-11-17T20:43:20.588371+00:00",
+    "dataset": "UCI Online Retail",
+    "trials_per_scenario": 20,
+    "number_of_scenarios": 4,
+    "total_trials": 80,
+    "summary": {
+        "Incorrect NULL handling": {
+            "system_b": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.6343
+            },
+            "system_c": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 20,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 3.5321,
+                "total_recovery_attempts": 20,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Counting records instead of distinct invoices": {
+            "system_b": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.319
+            },
+            "system_c": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 20,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 1.0,
+                "average_latency_seconds": 3.2377,
+                "total_recovery_attempts": 20,
+                "average_recovery_attempts": 1.0
+            }
+        },
+        "Incorrect monthly grouping": {
+            "system_b": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.1599
+            },
+            "system_c": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 11,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.55,
+                "average_latency_seconds": 13.7306,
+                "total_recovery_attempts": 29,
+                "average_recovery_attempts": 1.45
+            }
+        },
+        "Including zero-quantity records": {
+            "system_b": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 0.8701
+            },
+            "system_c": {
+                "total_trials": 20,
+                "successful_trials": 20,
+                "correct_trials": 0,
+                "execution_success_rate": 1.0,
+                "correctness_rate": 0.0,
+                "average_latency_seconds": 1.0181,
+                "total_recovery_attempts": 0,
+                "average_recovery_attempts": 0.0
+            }
+        }
+    },
+    "individual_results": [
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 1,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 3.2238,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 5.6488,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 2,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.6204,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.2884,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 3,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4793,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.3811,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 4,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4975,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.3633,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 5,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.505,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.39,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 6,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4916,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4073,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 7,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4907,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.3689,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 8,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4918,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4083,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 9,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4873,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4104,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 10,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4883,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4082,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 11,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4912,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4293,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 12,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4902,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.436,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 13,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.488,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.424,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 14,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4897,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4407,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 15,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4909,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4445,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 16,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4893,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4496,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 17,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4957,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4546,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 18,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4894,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.5099,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 19,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4955,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4796,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect NULL handling",
+            "benchmark_id": "D29-Q1",
+            "trial": 20,
+            "question": "How many records have a missing CustomerID?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL",
+            "expected_rows": [
+                [
+                    135080
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.49,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE CustomerID = NULL\n        ",
+                "rows": [
+                    [
+                        0
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4986,
+                "sql_query": "SELECT COUNT(*)\nFROM online_retail\nWHERE CustomerID IS NULL",
+                "rows": [
+                    [
+                        135080
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 1,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.4692,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4331,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 2,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.45,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.7592,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 3,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2872,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.758,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 4,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2852,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.7961,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 5,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2857,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.8251,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 6,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2963,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.8604,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 7,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2884,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.889,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 8,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2927,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 2.9409,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 9,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2929,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.0027,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 10,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2952,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.0613,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 11,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2933,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.3811,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 12,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3048,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.1616,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 13,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.2982,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.3192,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 14,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3067,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4734,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 15,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3171,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.4837,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 16,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3131,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.5779,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 17,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3374,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.6884,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 18,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3108,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.6865,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 19,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3335,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.8014,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Counting records instead of distinct invoices",
+            "benchmark_id": "D29-Q2",
+            "trial": 20,
+            "question": "How many distinct invoices are recorded in the dataset?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail",
+            "expected_rows": [
+                [
+                    25900
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(DISTINCT InvoiceNo)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.3218,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n        ",
+                "rows": [
+                    [
+                        541909
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 3.8549,
+                "sql_query": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail",
+                "rows": [
+                    [
+                        25900
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 1,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1648,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.0717,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 2,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1616,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 7.889,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 3,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1499,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 17.6001,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 4,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1583,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.3957,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 5,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1606,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 17.6014,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 6,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.161,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.2297,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 7,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1556,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 17.2209,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 8,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1602,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.0712,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 9,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1641,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 17.4814,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 10,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.163,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.2955,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 11,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1592,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 17.7739,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 12,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1574,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.4961,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 13,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1594,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 18.2999,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 14,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1616,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.6182,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 15,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1613,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 18.3078,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 16,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1608,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.9193,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 17,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1611,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 18.6599,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 18,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1606,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 10.8844,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 19,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.1593,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 18.7676,
+                "sql_query": "SELECT strftime('%m', InvoiceDate) AS month, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month\nORDER BY month",
+                "rows": [
+                    [
+                        "01",
+                        35147
+                    ],
+                    [
+                        "02",
+                        27707
+                    ],
+                    [
+                        "03",
+                        36748
+                    ],
+                    [
+                        "04",
+                        29916
+                    ],
+                    [
+                        "05",
+                        37030
+                    ],
+                    [
+                        "06",
+                        36874
+                    ],
+                    [
+                        "07",
+                        39518
+                    ],
+                    [
+                        "08",
+                        35284
+                    ],
+                    [
+                        "09",
+                        50226
+                    ],
+                    [
+                        "10",
+                        60742
+                    ],
+                    [
+                        "11",
+                        84711
+                    ],
+                    [
+                        "12",
+                        25525
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 2,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Incorrect monthly grouping",
+            "benchmark_id": "D29-Q3",
+            "trial": 20,
+            "question": "Show the number of records for each month in 2011.",
+            "faulty_sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year",
+            "expected_rows": [
+                [
+                    "2011-01",
+                    35147
+                ],
+                [
+                    "2011-02",
+                    27707
+                ],
+                [
+                    "2011-03",
+                    36748
+                ],
+                [
+                    "2011-04",
+                    29916
+                ],
+                [
+                    "2011-05",
+                    37030
+                ],
+                [
+                    "2011-06",
+                    36874
+                ],
+                [
+                    "2011-07",
+                    39518
+                ],
+                [
+                    "2011-08",
+                    35284
+                ],
+                [
+                    "2011-09",
+                    50226
+                ],
+                [
+                    "2011-10",
+                    60742
+                ],
+                [
+                    "2011-11",
+                    84711
+                ],
+                [
+                    "2011-12",
+                    25525
+                ]
+            ],
+            "expected_columns": [
+                "month",
+                "record_count"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.159,
+                "sql_query": "\n            SELECT strftime('%Y', InvoiceDate) AS year,\n                   COUNT(*) AS record_count\n            FROM online_retail\n            WHERE InvoiceDate >= '2011-01-01'\n              AND InvoiceDate < '2012-01-01'\n            GROUP BY year\n            ORDER BY year\n        ",
+                "rows": [
+                    [
+                        "2011",
+                        499428
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 11.029,
+                "sql_query": "SELECT strftime('%Y-%m', InvoiceDate) AS month_year, COUNT(*) AS record_count\nFROM online_retail\nWHERE InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY month_year\nORDER BY month_year",
+                "rows": [
+                    [
+                        "2011-01",
+                        35147
+                    ],
+                    [
+                        "2011-02",
+                        27707
+                    ],
+                    [
+                        "2011-03",
+                        36748
+                    ],
+                    [
+                        "2011-04",
+                        29916
+                    ],
+                    [
+                        "2011-05",
+                        37030
+                    ],
+                    [
+                        "2011-06",
+                        36874
+                    ],
+                    [
+                        "2011-07",
+                        39518
+                    ],
+                    [
+                        "2011-08",
+                        35284
+                    ],
+                    [
+                        "2011-09",
+                        50226
+                    ],
+                    [
+                        "2011-10",
+                        60742
+                    ],
+                    [
+                        "2011-11",
+                        84711
+                    ],
+                    [
+                        "2011-12",
+                        25525
+                    ]
+                ],
+                "correct": true,
+                "recovery_attempts": 1,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 1,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.9301,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.5877,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 2,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8066,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.0799,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 3,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8571,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9735,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 4,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8158,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9743,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 5,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8173,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.3326,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 6,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 1.0628,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.8623,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 7,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8211,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9965,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 8,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8525,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9696,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 9,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.892,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 1.0088,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 10,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8526,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9403,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 11,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8995,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9822,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 12,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8588,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9474,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 13,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.878,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.95,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 14,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8693,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9749,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 15,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8687,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9693,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 16,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8743,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9542,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 17,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8433,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9664,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 18,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.9088,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9502,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 19,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8677,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9808,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        },
+        {
+            "scenario": "Including zero-quantity records",
+            "benchmark_id": "D29-Q4",
+            "trial": 20,
+            "question": "How many records have a positive quantity?",
+            "faulty_sql": "SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0",
+            "expected_rows": [
+                [
+                    531285
+                ]
+            ],
+            "expected_columns": [
+                "COUNT(*)"
+            ],
+            "system_b": {
+                "success": true,
+                "latency_seconds": 0.8265,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "error": null
+            },
+            "system_c": {
+                "success": true,
+                "latency_seconds": 0.9601,
+                "sql_query": "\n            SELECT COUNT(*)\n            FROM online_retail\n            WHERE Quantity >= 0\n        ",
+                "rows": [
+                    [
+                        531285
+                    ]
+                ],
+                "correct": false,
+                "recovery_attempts": 0,
+                "semantic_validated": true,
+                "error": null
+            }
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "experiment": "Fault Injection Experiment 4",
+    "fault_type": "Semantic error",
+    "timestamp_utc": "2026-11-16T10:04:22.800148+00:00",
+    "system_b": {
+        "success": true,
+        "sql_query": "\nSELECT COUNT(*) AS order_count\nFROM orders\nWHERE order_date >= '2025-04-01'\n  AND order_date < '2025-05-01'\n",
+        "error": null
+    },
+    "system_c": {
+        "success": true,
+        "sql_query": "SELECT COUNT(*) AS order_count\nFROM orders\nWHERE order_date >= '2025-03-01'\n  AND order_date < '2025-04-01'",
+        "answer": "5",
+        "recovery_attempts": 1,
+        "error": null
+    }
+}

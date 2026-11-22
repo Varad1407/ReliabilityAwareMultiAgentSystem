@@ -125,8 +125,6 @@ def run_system(system, question, schema, seed=42):
         result = execute_sql(sql, db)
         return {"success": result["success"], "sql_query": sql,
                 "rows": result.get("rows", []), "error": result.get("error"),
-                    "agreement": result.get("agreement"),
-                    "trace": result.get("trace"),
                 "recovery_attempts": 0}
 
     if system == "B":
@@ -210,6 +208,8 @@ def main():
                     "recovery_attempts": result.get("recovery_attempts", 0),
                     "sql": result.get("sql_query"),
                     "rows": [list(r) for r in (result.get("rows") or [])][:20],
+                    "agreement": result.get("agreement"),
+                    "trace": result.get("trace"),
                     "error": result.get("error"),
                 }
                 records.append(record)

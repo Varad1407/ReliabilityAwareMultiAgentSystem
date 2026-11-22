@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "system": "A",
+    "model": "qwen2.5:7b",
+    "temperature": 0.0,
+    "reps": 1,
+    "seeds": [
+      42
+    ],
+    "questions": 2,
+    "evaluations": 2,
+    "mock": false,
+    "execution_rate": 1.0,
+    "accuracy_strict": 1.0,
+    "accuracy_lenient": 1.0,
+    "avg_latency_seconds": 3.627,
+    "avg_llm_calls": 1.0,
+    "avg_prompt_tokens": 539.0,
+    "avg_output_tokens": 42.5
+  },
+  "records": [
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 11,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.236,
+      "llm_calls": 1,
+      "prompt_tokens": 539,
+      "output_tokens": 38,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(UnitPrice * Quantity) AS TotalGrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          10666684.544
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 12,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.019,
+      "llm_calls": 1,
+      "prompt_tokens": 539,
+      "output_tokens": 47,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, SUM(UnitPrice * Quantity) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND UnitPrice > 0\nGROUP BY Country\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "United Kingdom",
+          9025222.084
+        ],
+        [
+          "Netherlands",
+          285446.34
+        ],
+        [
+          "EIRE",
+          283453.96
+        ],
+        [
+          "Germany",
+          228867.14
+        ],
+        [
+          "France",
+          209715.11
+        ]
+      ],
+      "error": null
+    }
+  ]
+}

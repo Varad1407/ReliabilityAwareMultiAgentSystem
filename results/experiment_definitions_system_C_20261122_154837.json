@@ -1,0 +1,2304 @@
+{
+  "summary": {
+    "system": "C",
+    "schema": "definitions",
+    "model": "qwen2.5:7b",
+    "temperature": 0.3,
+    "reps": 3,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "questions": 30,
+    "evaluations": 90,
+    "mock": false,
+    "execution_rate": 0.8444,
+    "accuracy_strict": 0.6556,
+    "accuracy_lenient": 0.6556,
+    "avg_latency_seconds": 5.714,
+    "avg_llm_calls": 2.678,
+    "avg_prompt_tokens": 1716.3,
+    "avg_output_tokens": 80.5
+  },
+  "records": [
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 11,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.345,
+      "llm_calls": 3,
+      "prompt_tokens": 1629,
+      "output_tokens": 75,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity * UnitPrice) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          10666684.544
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 12,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.882,
+      "llm_calls": 2,
+      "prompt_tokens": 1570,
+      "output_tokens": 55,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, SUM(Quantity * UnitPrice) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY Country\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "United Kingdom",
+          9025222.084
+        ],
+        [
+          "Netherlands",
+          285446.34
+        ],
+        [
+          "EIRE",
+          283453.96
+        ],
+        [
+          "Germany",
+          228867.14
+        ],
+        [
+          "France",
+          209715.11
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 13,
+      "category": "customers",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.429,
+      "llm_calls": 3,
+      "prompt_tokens": 1588,
+      "output_tokens": 28,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL",
+      "rows": [
+        [
+          4372
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 14,
+      "category": "customers",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.711,
+      "llm_calls": 3,
+      "prompt_tokens": 1586,
+      "output_tokens": 32,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND Country = 'Germany'",
+      "rows": [
+        [
+          95
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 15,
+      "category": "revenue+time",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 10.385,
+      "llm_calls": 2,
+      "prompt_tokens": 1497,
+      "output_tokens": 164,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM online_retail\nWHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 16,
+      "category": "revenue+time",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 7.465,
+      "llm_calls": 2,
+      "prompt_tokens": 1821,
+      "output_tokens": 108,
+      "recovery_attempts": 0,
+      "sql": "SELECT \n    strftime('%Y-%m', InvoiceDate) AS Month, \n    ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM \n    online_retail\nWHERE \n    InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND InvoiceDate >= '2011-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY \n    Month\nORDER BY \n    Month",
+      "rows": [
+        [
+          "2011-01",
+          691364.56
+        ],
+        [
+          "2011-02",
+          523631.89
+        ],
+        [
+          "2011-03",
+          717639.36
+        ],
+        [
+          "2011-04",
+          537808.62
+        ],
+        [
+          "2011-05",
+          770536.02
+        ],
+        [
+          "2011-06",
+          761739.9
+        ],
+        [
+          "2011-07",
+          719221.19
+        ],
+        [
+          "2011-08",
+          759138.38
+        ],
+        [
+          "2011-09",
+          1058590.17
+        ],
+        [
+          "2011-10",
+          1154979.3
+        ],
+        [
+          "2011-11",
+          1509496.33
+        ],
+        [
+          "2011-12",
+          638792.68
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 17,
+      "category": "revenue+time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.877,
+      "llm_calls": 2,
+      "prompt_tokens": 1545,
+      "output_tokens": 72,
+      "recovery_attempts": 0,
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY Month\nORDER BY Gross_Revenue DESC\nLIMIT 1",
+      "rows": [
+        [
+          "2011-11",
+          1509496.33
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 18,
+      "category": "products",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 3.634,
+      "llm_calls": 2,
+      "prompt_tokens": 1579,
+      "output_tokens": 48,
+      "recovery_attempts": 0,
+      "sql": "SELECT StockCode, SUM(Quantity) AS TotalQuantity\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY StockCode\nORDER BY TotalQuantity DESC\nLIMIT 5",
+      "rows": [
+        [
+          "23843",
+          80995
+        ],
+        [
+          "23166",
+          78033
+        ],
+        [
+          "22197",
+          56921
+        ],
+        [
+          "84077",
+          55047
+        ],
+        [
+          "85099B",
+          48478
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 19,
+      "category": "products+revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.062,
+      "llm_calls": 2,
+      "prompt_tokens": 1604,
+      "output_tokens": 56,
+      "recovery_attempts": 0,
+      "sql": "SELECT StockCode, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY StockCode\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "DOT",
+          206248.77
+        ],
+        [
+          "22423",
+          174484.74
+        ],
+        [
+          "23843",
+          168469.6
+        ],
+        [
+          "85123A",
+          104518.8
+        ],
+        [
+          "47566",
+          99504.33
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 20,
+      "category": "customers+revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.928,
+      "llm_calls": 2,
+      "prompt_tokens": 1635,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT CustomerID, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY CustomerID\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          14646.0,
+          280206.02
+        ],
+        [
+          18102.0,
+          259657.3
+        ],
+        [
+          17450.0,
+          194550.79
+        ],
+        [
+          16446.0,
+          168472.5
+        ],
+        [
+          14911.0,
+          143825.06
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 21,
+      "category": "invoices",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 3.93,
+      "llm_calls": 2,
+      "prompt_tokens": 1415,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 22,
+      "category": "invoices+revenue",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.062,
+      "llm_calls": 3,
+      "prompt_tokens": 1654,
+      "output_tokens": 94,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(AVG(Total), 2) AS AverageGrossRevenuePerInvoice\nFROM (\n    SELECT InvoiceNo, SUM(Quantity * UnitPrice) AS Total\n    FROM online_retail\n    WHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\n    GROUP BY InvoiceNo\n) AS Subquery",
+      "rows": [
+        [
+          534.4
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 23,
+      "category": "net revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.604,
+      "llm_calls": 3,
+      "prompt_tokens": 1646,
+      "output_tokens": 64,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(Quantity * UnitPrice), 2) AS Net_Revenue FROM online_retail",
+      "rows": [
+        [
+          9747747.93
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 24,
+      "category": "cancellations",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 3.785,
+      "llm_calls": 3,
+      "prompt_tokens": 1624,
+      "output_tokens": 44,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(-1 * Quantity * UnitPrice), 2) AS TotalValue\nFROM online_retail\nWHERE InvoiceNo LIKE 'C%'",
+      "rows": [
+        [
+          896812.49
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 25,
+      "category": "customers",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 12.116,
+      "llm_calls": 5,
+      "prompt_tokens": 3239,
+      "output_tokens": 172,
+      "recovery_attempts": 1,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM (\n    SELECT CustomerID \n    FROM online_retail \n    WHERE CustomerID IS NOT NULL \n    GROUP BY CustomerID \n    HAVING COUNT(DISTINCT Country) > 1\n) AS CustomerCountries",
+      "rows": [
+        [
+          8
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 26,
+      "category": "customers",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.09,
+      "llm_calls": 3,
+      "prompt_tokens": 1610,
+      "output_tokens": 55,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          4338
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 27,
+      "category": "time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.606,
+      "llm_calls": 2,
+      "prompt_tokens": 1534,
+      "output_tokens": 64,
+      "recovery_attempts": 0,
+      "sql": "SELECT strftime('%w', InvoiceDate) AS day_of_week, COUNT(DISTINCT InvoiceNo) AS num_invoices\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY day_of_week\nORDER BY num_invoices DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "4",
+          4408
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 28,
+      "category": "time",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.37,
+      "llm_calls": 2,
+      "prompt_tokens": 1495,
+      "output_tokens": 26,
+      "recovery_attempts": 0,
+      "sql": "SELECT MIN(InvoiceDate) AS EarliestDate, MAX(InvoiceDate) AS LatestDate FROM online_retail",
+      "rows": [
+        [
+          "2010-12-01 08:26:00",
+          "2011-12-09 12:50:00"
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 29,
+      "category": "data quality",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.367,
+      "llm_calls": 3,
+      "prompt_tokens": 1563,
+      "output_tokens": 30,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(*) FROM online_retail WHERE UnitPrice = 0",
+      "rows": [
+        [
+          2515
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 30,
+      "category": "revenue",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.948,
+      "llm_calls": 3,
+      "prompt_tokens": 1636,
+      "output_tokens": 70,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(CASE WHEN Country = 'United Kingdom' THEN Quantity * UnitPrice ELSE 0 END) * 100.0 / SUM(Quantity * UnitPrice), 2) AS percentage\nFROM online_retail\nWHERE Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          84.61
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 31,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 13.876,
+      "llm_calls": 5,
+      "prompt_tokens": 3290,
+      "output_tokens": 220,
+      "recovery_attempts": 1,
+      "sql": "SELECT COUNT(DISTINCT Country) \nFROM (\n    SELECT Country, SUM(Quantity * UnitPrice) AS GrossRevenue\n    FROM online_retail\n    WHERE InvoiceNo NOT LIKE 'C%' \n      AND Quantity > 0 \n      AND UnitPrice > 0\n    GROUP BY Country\n    HAVING SUM(Quantity * UnitPrice) > 100000\n) AS RevenueByCountry",
+      "rows": [
+        [
+          6
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 32,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.941,
+      "llm_calls": 2,
+      "prompt_tokens": 1559,
+      "output_tokens": 89,
+      "recovery_attempts": 0,
+      "sql": "SELECT \n    Country, \n    ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM \n    online_retail\nWHERE \n    Country NOT LIKE 'United Kingdom' \n    AND InvoiceNo NOT LIKE 'C%' \n    AND Quantity > 0 \n    AND UnitPrice > 0\nGROUP BY \n    Country\nORDER BY \n    Gross_Revenue DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "Netherlands",
+          285446.34
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 33,
+      "category": "time",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 5.004,
+      "llm_calls": 3,
+      "prompt_tokens": 1625,
+      "output_tokens": 77,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity) AS TotalQuantitySold\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND strftime('%Y-%m', InvoiceDate) = '2010-12'",
+      "rows": [
+        [
+          362316
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 34,
+      "category": "revenue+time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 13.251,
+      "llm_calls": 3,
+      "prompt_tokens": 1775,
+      "output_tokens": 208,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(100 * (SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-11' THEN Quantity * UnitPrice ELSE 0 END) - SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-10' THEN Quantity * UnitPrice ELSE 0 END)) / SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-10' THEN Quantity * UnitPrice ELSE 0 END), 2) AS revenue_change_percentage\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND strftime('%Y-%m', InvoiceDate) IN ('2011-10', '2011-11')",
+      "rows": [
+        [
+          30.69
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 35,
+      "category": "ambiguous",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 5.012,
+      "llm_calls": 3,
+      "prompt_tokens": 1608,
+      "output_tokens": 71,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity * UnitPrice) AS TotalSales\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND strftime('%Y', InvoiceDate) = '2011'",
+      "rows": [
+        [
+          9820814.284
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 36,
+      "category": "ambiguous",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.216,
+      "llm_calls": 2,
+      "prompt_tokens": 1389,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 37,
+      "category": "data quality",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.019,
+      "llm_calls": 3,
+      "prompt_tokens": 1585,
+      "output_tokens": 50,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND CustomerID IS NULL",
+      "rows": [
+        [
+          2192
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 38,
+      "category": "products",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.606,
+      "llm_calls": 3,
+      "prompt_tokens": 1613,
+      "output_tokens": 59,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(AVG(UnitPrice), 2) AS AverageUnitPrice\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          3.91
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 39,
+      "category": "invoices",
+      "difficulty": "hard",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 9.495,
+      "llm_calls": 3,
+      "prompt_tokens": 2121,
+      "output_tokens": 125,
+      "recovery_attempts": 2,
+      "sql": "SELECT ROUND(AVG(COUNT(DISTINCT StockCode)), 2) AS avg_distinct_products\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0",
+      "rows": [],
+      "error": "Maximum recovery attempts reached."
+    },
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 40,
+      "category": "returns",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 3.551,
+      "llm_calls": 2,
+      "prompt_tokens": 1485,
+      "output_tokens": 40,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, COUNT(*) AS CancellationRecords\nFROM online_retail\nWHERE InvoiceNo LIKE 'C%'\nGROUP BY Country\nORDER BY CancellationRecords DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "United Kingdom",
+          7856
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 11,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.984,
+      "llm_calls": 3,
+      "prompt_tokens": 1629,
+      "output_tokens": 74,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity * UnitPrice) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          10666684.544
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 12,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.311,
+      "llm_calls": 2,
+      "prompt_tokens": 1570,
+      "output_tokens": 55,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, SUM(Quantity * UnitPrice) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY Country\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "United Kingdom",
+          9025222.084
+        ],
+        [
+          "Netherlands",
+          285446.34
+        ],
+        [
+          "EIRE",
+          283453.96
+        ],
+        [
+          "Germany",
+          228867.14
+        ],
+        [
+          "France",
+          209715.11
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 13,
+      "category": "customers",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.427,
+      "llm_calls": 3,
+      "prompt_tokens": 1588,
+      "output_tokens": 28,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL",
+      "rows": [
+        [
+          4372
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 14,
+      "category": "customers",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.957,
+      "llm_calls": 3,
+      "prompt_tokens": 1586,
+      "output_tokens": 38,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND Country = 'Germany'",
+      "rows": [
+        [
+          95
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 15,
+      "category": "revenue+time",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 9.348,
+      "llm_calls": 2,
+      "prompt_tokens": 1497,
+      "output_tokens": 164,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM online_retail\nWHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 16,
+      "category": "revenue+time",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 7.208,
+      "llm_calls": 2,
+      "prompt_tokens": 1803,
+      "output_tokens": 90,
+      "recovery_attempts": 0,
+      "sql": "SELECT \n    strftime('%Y-%m', InvoiceDate) AS Month,\n    ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM \n    online_retail\nWHERE \n    InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND strftime('%Y', InvoiceDate) = '2011'\nGROUP BY \n    Month\nORDER BY \n    Month",
+      "rows": [
+        [
+          "2011-01",
+          691364.56
+        ],
+        [
+          "2011-02",
+          523631.89
+        ],
+        [
+          "2011-03",
+          717639.36
+        ],
+        [
+          "2011-04",
+          537808.62
+        ],
+        [
+          "2011-05",
+          770536.02
+        ],
+        [
+          "2011-06",
+          761739.9
+        ],
+        [
+          "2011-07",
+          719221.19
+        ],
+        [
+          "2011-08",
+          759138.38
+        ],
+        [
+          "2011-09",
+          1058590.17
+        ],
+        [
+          "2011-10",
+          1154979.3
+        ],
+        [
+          "2011-11",
+          1509496.33
+        ],
+        [
+          "2011-12",
+          638792.68
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 17,
+      "category": "revenue+time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.942,
+      "llm_calls": 2,
+      "prompt_tokens": 1543,
+      "output_tokens": 70,
+      "recovery_attempts": 0,
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY Month\nORDER BY GrossRevenue DESC\nLIMIT 1",
+      "rows": [
+        [
+          "2011-11",
+          1509496.33
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 18,
+      "category": "products",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 3.751,
+      "llm_calls": 2,
+      "prompt_tokens": 1579,
+      "output_tokens": 48,
+      "recovery_attempts": 0,
+      "sql": "SELECT StockCode, SUM(Quantity) AS TotalQuantity\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY StockCode\nORDER BY TotalQuantity DESC\nLIMIT 5",
+      "rows": [
+        [
+          "23843",
+          80995
+        ],
+        [
+          "23166",
+          78033
+        ],
+        [
+          "22197",
+          56921
+        ],
+        [
+          "84077",
+          55047
+        ],
+        [
+          "85099B",
+          48478
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 19,
+      "category": "products+revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.138,
+      "llm_calls": 2,
+      "prompt_tokens": 1604,
+      "output_tokens": 56,
+      "recovery_attempts": 0,
+      "sql": "SELECT StockCode, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY StockCode\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "DOT",
+          206248.77
+        ],
+        [
+          "22423",
+          174484.74
+        ],
+        [
+          "23843",
+          168469.6
+        ],
+        [
+          "85123A",
+          104518.8
+        ],
+        [
+          "47566",
+          99504.33
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 20,
+      "category": "customers+revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.449,
+      "llm_calls": 2,
+      "prompt_tokens": 1635,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT CustomerID, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY CustomerID\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          14646.0,
+          280206.02
+        ],
+        [
+          18102.0,
+          259657.3
+        ],
+        [
+          17450.0,
+          194550.79
+        ],
+        [
+          16446.0,
+          168472.5
+        ],
+        [
+          14911.0,
+          143825.06
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 21,
+      "category": "invoices",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.14,
+      "llm_calls": 2,
+      "prompt_tokens": 1415,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 22,
+      "category": "invoices+revenue",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.285,
+      "llm_calls": 3,
+      "prompt_tokens": 1654,
+      "output_tokens": 94,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(AVG(Total), 2) AS AverageGrossRevenuePerInvoice\nFROM (\n    SELECT InvoiceNo, SUM(Quantity * UnitPrice) AS Total\n    FROM online_retail\n    WHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\n    GROUP BY InvoiceNo\n) AS SubQuery",
+      "rows": [
+        [
+          534.4
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 23,
+      "category": "net revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.602,
+      "llm_calls": 3,
+      "prompt_tokens": 1646,
+      "output_tokens": 64,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(Quantity * UnitPrice), 2) AS Net_Revenue FROM online_retail",
+      "rows": [
+        [
+          9747747.93
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 24,
+      "category": "cancellations",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 3.737,
+      "llm_calls": 3,
+      "prompt_tokens": 1624,
+      "output_tokens": 44,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(-1 * Quantity * UnitPrice), 2) AS TotalValue\nFROM online_retail\nWHERE InvoiceNo LIKE 'C%'",
+      "rows": [
+        [
+          896812.49
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 25,
+      "category": "customers",
+      "difficulty": "hard",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 7.844,
+      "llm_calls": 3,
+      "prompt_tokens": 2267,
+      "output_tokens": 119,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL \nGROUP BY CustomerID \nHAVING COUNT(DISTINCT Country) > 1",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 26,
+      "category": "customers",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 13.815,
+      "llm_calls": 5,
+      "prompt_tokens": 3470,
+      "output_tokens": 198,
+      "recovery_attempts": 1,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM (\n    SELECT CustomerID, InvoiceNo\n    FROM online_retail\n    WHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\n    GROUP BY CustomerID, InvoiceNo\n    HAVING COUNT(InvoiceNo) = 1\n) AS NormalSales",
+      "rows": [
+        [
+          741
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 27,
+      "category": "time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.834,
+      "llm_calls": 2,
+      "prompt_tokens": 1534,
+      "output_tokens": 64,
+      "recovery_attempts": 0,
+      "sql": "SELECT strftime('%w', InvoiceDate) AS day_of_week, COUNT(DISTINCT InvoiceNo) AS num_invoices\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY day_of_week\nORDER BY num_invoices DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "4",
+          4408
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 28,
+      "category": "time",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.494,
+      "llm_calls": 2,
+      "prompt_tokens": 1495,
+      "output_tokens": 26,
+      "recovery_attempts": 0,
+      "sql": "SELECT MIN(InvoiceDate) AS EarliestDate, MAX(InvoiceDate) AS LatestDate FROM online_retail",
+      "rows": [
+        [
+          "2010-12-01 08:26:00",
+          "2011-12-09 12:50:00"
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 29,
+      "category": "data quality",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.427,
+      "llm_calls": 3,
+      "prompt_tokens": 1563,
+      "output_tokens": 30,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(*) FROM online_retail WHERE UnitPrice = 0",
+      "rows": [
+        [
+          2515
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 30,
+      "category": "revenue",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.994,
+      "llm_calls": 3,
+      "prompt_tokens": 1632,
+      "output_tokens": 66,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(CASE WHEN Country = 'United Kingdom' THEN Quantity * UnitPrice ELSE 0 END) * 100 / SUM(Quantity * UnitPrice), 2) AS Percentage FROM online_retail WHERE Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          84.61
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 31,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 13.422,
+      "llm_calls": 5,
+      "prompt_tokens": 3259,
+      "output_tokens": 189,
+      "recovery_attempts": 1,
+      "sql": "SELECT COUNT(DISTINCT Country) \nFROM (\n  SELECT Country \n  FROM online_retail \n  WHERE InvoiceNo NOT LIKE 'C%' \n    AND Quantity > 0 \n    AND UnitPrice > 0 \n  GROUP BY Country \n  HAVING SUM(Quantity * UnitPrice) > 100000\n) AS revenue_countries",
+      "rows": [
+        [
+          6
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 32,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.054,
+      "llm_calls": 2,
+      "prompt_tokens": 1559,
+      "output_tokens": 89,
+      "recovery_attempts": 0,
+      "sql": "SELECT \n    Country, \n    ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM \n    online_retail\nWHERE \n    Country NOT LIKE 'United Kingdom' \n    AND InvoiceNo NOT LIKE 'C%' \n    AND Quantity > 0 \n    AND UnitPrice > 0\nGROUP BY \n    Country\nORDER BY \n    Gross_Revenue DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "Netherlands",
+          285446.34
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 33,
+      "category": "time",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 5.854,
+      "llm_calls": 3,
+      "prompt_tokens": 1634,
+      "output_tokens": 86,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity) AS TotalQuantitySold\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND InvoiceDate BETWEEN '2010-12-01' AND '2010-12-31'",
+      "rows": [
+        [
+          362316
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 34,
+      "category": "revenue+time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 12.637,
+      "llm_calls": 3,
+      "prompt_tokens": 1775,
+      "output_tokens": 208,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(100 * (SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-11' THEN Quantity * UnitPrice ELSE 0 END) - SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-10' THEN Quantity * UnitPrice ELSE 0 END)) / SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-10' THEN Quantity * UnitPrice ELSE 0 END), 2) AS revenue_change_percentage\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND strftime('%Y-%m', InvoiceDate) IN ('2011-10', '2011-11')",
+      "rows": [
+        [
+          30.69
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 35,
+      "category": "ambiguous",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.317,
+      "llm_calls": 3,
+      "prompt_tokens": 1630,
+      "output_tokens": 93,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity * UnitPrice) AS TotalSales\nFROM online_retail\nWHERE InvoiceDate BETWEEN '2011-01-01' AND '2011-12-31'\nAND InvoiceNo NOT LIKE 'C%'\nAND Quantity > 0\nAND UnitPrice > 0;",
+      "rows": [
+        [
+          9842938.404
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 36,
+      "category": "ambiguous",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.445,
+      "llm_calls": 2,
+      "prompt_tokens": 1389,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 37,
+      "category": "data quality",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 3.888,
+      "llm_calls": 3,
+      "prompt_tokens": 1585,
+      "output_tokens": 40,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND CustomerID IS NULL",
+      "rows": [
+        [
+          2192
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 38,
+      "category": "products",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.561,
+      "llm_calls": 3,
+      "prompt_tokens": 1613,
+      "output_tokens": 59,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(AVG(UnitPrice), 2) AS AverageUnitPrice\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          3.91
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 39,
+      "category": "invoices",
+      "difficulty": "hard",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 7.866,
+      "llm_calls": 3,
+      "prompt_tokens": 2121,
+      "output_tokens": 125,
+      "recovery_attempts": 2,
+      "sql": "SELECT ROUND(AVG(COUNT(DISTINCT StockCode)), 2) AS avg_distinct_products\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0",
+      "rows": [],
+      "error": "Maximum recovery attempts reached."
+    },
+    {
+      "rep": 2,
+      "seed": 43,
+      "id": 40,
+      "category": "returns",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 3.437,
+      "llm_calls": 2,
+      "prompt_tokens": 1485,
+      "output_tokens": 40,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, COUNT(*) AS CancellationRecords\nFROM online_retail\nWHERE InvoiceNo LIKE 'C%'\nGROUP BY Country\nORDER BY CancellationRecords DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "United Kingdom",
+          7856
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 11,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.084,
+      "llm_calls": 3,
+      "prompt_tokens": 1629,
+      "output_tokens": 75,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity * UnitPrice) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          10666684.544
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 12,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.378,
+      "llm_calls": 2,
+      "prompt_tokens": 1568,
+      "output_tokens": 53,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, SUM(Quantity * UnitPrice) AS Revenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY Country\nORDER BY Revenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "United Kingdom",
+          9025222.084
+        ],
+        [
+          "Netherlands",
+          285446.34
+        ],
+        [
+          "EIRE",
+          283453.96
+        ],
+        [
+          "Germany",
+          228867.14
+        ],
+        [
+          "France",
+          209715.11
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 13,
+      "category": "customers",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.626,
+      "llm_calls": 3,
+      "prompt_tokens": 1588,
+      "output_tokens": 28,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL",
+      "rows": [
+        [
+          4372
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 14,
+      "category": "customers",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.776,
+      "llm_calls": 3,
+      "prompt_tokens": 1586,
+      "output_tokens": 32,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND Country = 'Germany'",
+      "rows": [
+        [
+          95
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 15,
+      "category": "revenue+time",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 9.658,
+      "llm_calls": 2,
+      "prompt_tokens": 1496,
+      "output_tokens": 164,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceDate BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59'\nAND Quantity > 0 AND UnitPrice > 0;",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 16,
+      "category": "revenue+time",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.973,
+      "llm_calls": 2,
+      "prompt_tokens": 1803,
+      "output_tokens": 90,
+      "recovery_attempts": 0,
+      "sql": "SELECT \n    strftime('%Y-%m', InvoiceDate) AS Month,\n    ROUND(SUM(Quantity * UnitPrice), 2) AS Gross_Revenue\nFROM \n    online_retail\nWHERE \n    InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND strftime('%Y', InvoiceDate) = '2011'\nGROUP BY \n    Month\nORDER BY \n    Month",
+      "rows": [
+        [
+          "2011-01",
+          691364.56
+        ],
+        [
+          "2011-02",
+          523631.89
+        ],
+        [
+          "2011-03",
+          717639.36
+        ],
+        [
+          "2011-04",
+          537808.62
+        ],
+        [
+          "2011-05",
+          770536.02
+        ],
+        [
+          "2011-06",
+          761739.9
+        ],
+        [
+          "2011-07",
+          719221.19
+        ],
+        [
+          "2011-08",
+          759138.38
+        ],
+        [
+          "2011-09",
+          1058590.17
+        ],
+        [
+          "2011-10",
+          1154979.3
+        ],
+        [
+          "2011-11",
+          1509496.33
+        ],
+        [
+          "2011-12",
+          638792.68
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 17,
+      "category": "revenue+time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.1,
+      "llm_calls": 2,
+      "prompt_tokens": 1543,
+      "output_tokens": 70,
+      "recovery_attempts": 0,
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS Month, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY Month\nORDER BY GrossRevenue DESC\nLIMIT 1",
+      "rows": [
+        [
+          "2011-11",
+          1509496.33
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 18,
+      "category": "products",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 3.873,
+      "llm_calls": 2,
+      "prompt_tokens": 1579,
+      "output_tokens": 48,
+      "recovery_attempts": 0,
+      "sql": "SELECT StockCode, SUM(Quantity) AS TotalQuantity\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY StockCode\nORDER BY TotalQuantity DESC\nLIMIT 5",
+      "rows": [
+        [
+          "23843",
+          80995
+        ],
+        [
+          "23166",
+          78033
+        ],
+        [
+          "22197",
+          56921
+        ],
+        [
+          "84077",
+          55047
+        ],
+        [
+          "85099B",
+          48478
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 19,
+      "category": "products+revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.351,
+      "llm_calls": 2,
+      "prompt_tokens": 1604,
+      "output_tokens": 56,
+      "recovery_attempts": 0,
+      "sql": "SELECT StockCode, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY StockCode\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          "DOT",
+          206248.77
+        ],
+        [
+          "22423",
+          174484.74
+        ],
+        [
+          "23843",
+          168469.6
+        ],
+        [
+          "85123A",
+          104518.8
+        ],
+        [
+          "47566",
+          99504.33
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 20,
+      "category": "customers+revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.314,
+      "llm_calls": 2,
+      "prompt_tokens": 1635,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT CustomerID, ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM online_retail\nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\nGROUP BY CustomerID\nORDER BY GrossRevenue DESC\nLIMIT 5",
+      "rows": [
+        [
+          14646.0,
+          280206.02
+        ],
+        [
+          18102.0,
+          259657.3
+        ],
+        [
+          17450.0,
+          194550.79
+        ],
+        [
+          16446.0,
+          168472.5
+        ],
+        [
+          14911.0,
+          143825.06
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 21,
+      "category": "invoices",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.229,
+      "llm_calls": 2,
+      "prompt_tokens": 1415,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 22,
+      "category": "invoices+revenue",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.468,
+      "llm_calls": 3,
+      "prompt_tokens": 1654,
+      "output_tokens": 94,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(AVG(Total), 2) AS AverageGrossRevenuePerInvoice\nFROM (\n    SELECT InvoiceNo, SUM(Quantity * UnitPrice) AS Total\n    FROM online_retail\n    WHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\n    GROUP BY InvoiceNo\n) AS Subquery",
+      "rows": [
+        [
+          534.4
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 23,
+      "category": "net revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.756,
+      "llm_calls": 3,
+      "prompt_tokens": 1645,
+      "output_tokens": 63,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(Quantity * UnitPrice), 2) AS NetRevenue FROM online_retail",
+      "rows": [
+        [
+          9747747.93
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 24,
+      "category": "cancellations",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 3.855,
+      "llm_calls": 3,
+      "prompt_tokens": 1624,
+      "output_tokens": 44,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(-1 * Quantity * UnitPrice), 2) AS TotalValue\nFROM online_retail\nWHERE InvoiceNo LIKE 'C%'",
+      "rows": [
+        [
+          896812.49
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 25,
+      "category": "customers",
+      "difficulty": "hard",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 8.05,
+      "llm_calls": 3,
+      "prompt_tokens": 2266,
+      "output_tokens": 118,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL \nGROUP BY CustomerID \nHAVING COUNT(DISTINCT Country) > 1",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 26,
+      "category": "customers",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 6.748,
+      "llm_calls": 3,
+      "prompt_tokens": 1650,
+      "output_tokens": 97,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE CustomerID IS NOT NULL AND InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND InvoiceNo IN (\n    SELECT InvoiceNo \n    FROM online_retail \n    WHERE CustomerID = online_retail.CustomerID \n    GROUP BY InvoiceNo \n    HAVING COUNT(*) = 1\n)",
+      "rows": [
+        [
+          741
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 27,
+      "category": "time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.923,
+      "llm_calls": 2,
+      "prompt_tokens": 1534,
+      "output_tokens": 64,
+      "recovery_attempts": 0,
+      "sql": "SELECT strftime('%w', InvoiceDate) AS day_of_week, COUNT(DISTINCT InvoiceNo) AS num_invoices\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\nGROUP BY day_of_week\nORDER BY num_invoices DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "4",
+          4408
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 28,
+      "category": "time",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.529,
+      "llm_calls": 2,
+      "prompt_tokens": 1495,
+      "output_tokens": 26,
+      "recovery_attempts": 0,
+      "sql": "SELECT MIN(InvoiceDate) AS EarliestDate, MAX(InvoiceDate) AS LatestDate FROM online_retail",
+      "rows": [
+        [
+          "2010-12-01 08:26:00",
+          "2011-12-09 12:50:00"
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 29,
+      "category": "data quality",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 2.494,
+      "llm_calls": 3,
+      "prompt_tokens": 1563,
+      "output_tokens": 30,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(*) FROM online_retail WHERE UnitPrice = 0",
+      "rows": [
+        [
+          2515
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 30,
+      "category": "revenue",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 5.195,
+      "llm_calls": 3,
+      "prompt_tokens": 1634,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(SUM(CASE WHEN Country = 'United Kingdom' THEN Quantity * UnitPrice ELSE 0 END) * 100.0 / SUM(Quantity * UnitPrice), 2) AS percentage FROM online_retail WHERE Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          84.61
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 31,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 13.477,
+      "llm_calls": 5,
+      "prompt_tokens": 3263,
+      "output_tokens": 195,
+      "recovery_attempts": 1,
+      "sql": "SELECT COUNT(DISTINCT Country) \nFROM (\n    SELECT Country \n    FROM online_retail \n    WHERE InvoiceNo NOT LIKE 'C%' \n    AND Quantity > 0 \n    AND UnitPrice > 0 \n    GROUP BY Country \n    HAVING SUM(Quantity * UnitPrice) > 100000\n) AS RevenueByCountry",
+      "rows": [
+        [
+          6
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 32,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 6.774,
+      "llm_calls": 2,
+      "prompt_tokens": 1556,
+      "output_tokens": 86,
+      "recovery_attempts": 0,
+      "sql": "SELECT \n    Country, \n    ROUND(SUM(Quantity * UnitPrice), 2) AS GrossRevenue\nFROM \n    online_retail\nWHERE \n    Country != 'United Kingdom' AND \n    InvoiceNo NOT LIKE 'C%' AND \n    Quantity > 0 AND \n    UnitPrice > 0\nGROUP BY \n    Country\nORDER BY \n    GrossRevenue DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "Netherlands",
+          285446.34
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 33,
+      "category": "time",
+      "difficulty": "easy",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 5.649,
+      "llm_calls": 3,
+      "prompt_tokens": 1625,
+      "output_tokens": 77,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity) AS TotalQuantitySold\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND strftime('%Y-%m', InvoiceDate) = '2010-12'",
+      "rows": [
+        [
+          362316
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 34,
+      "category": "revenue+time",
+      "difficulty": "hard",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 13.055,
+      "llm_calls": 3,
+      "prompt_tokens": 1775,
+      "output_tokens": 208,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(100 * (SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-11' THEN Quantity * UnitPrice ELSE 0 END) - SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-10' THEN Quantity * UnitPrice ELSE 0 END)) / SUM(CASE WHEN strftime('%Y-%m', InvoiceDate) = '2011-10' THEN Quantity * UnitPrice ELSE 0 END), 2) AS revenue_change_percentage\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0 AND strftime('%Y-%m', InvoiceDate) IN ('2011-10', '2011-11')",
+      "rows": [
+        [
+          30.69
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 35,
+      "category": "ambiguous",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 5.568,
+      "llm_calls": 3,
+      "prompt_tokens": 1608,
+      "output_tokens": 71,
+      "recovery_attempts": 0,
+      "sql": "SELECT SUM(Quantity * UnitPrice) AS TotalSales\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND strftime('%Y', InvoiceDate) = '2011'",
+      "rows": [
+        [
+          9820814.284
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 36,
+      "category": "ambiguous",
+      "difficulty": "medium",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.551,
+      "llm_calls": 2,
+      "prompt_tokens": 1389,
+      "output_tokens": 68,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT CustomerID) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND CustomerID IS NOT NULL",
+      "rows": [],
+      "error": "Recovery failed: regenerated SQL is identical to previous SQL."
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 37,
+      "category": "data quality",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 4.137,
+      "llm_calls": 3,
+      "prompt_tokens": 1585,
+      "output_tokens": 50,
+      "recovery_attempts": 0,
+      "sql": "SELECT COUNT(DISTINCT InvoiceNo) \nFROM online_retail \nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND CustomerID IS NULL",
+      "rows": [
+        [
+          2192
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 38,
+      "category": "products",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 4.592,
+      "llm_calls": 3,
+      "prompt_tokens": 1613,
+      "output_tokens": 59,
+      "recovery_attempts": 0,
+      "sql": "SELECT ROUND(AVG(UnitPrice), 2) AS AverageUnitPrice\nFROM online_retail\nWHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0",
+      "rows": [
+        [
+          3.91
+        ]
+      ],
+      "error": null
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 39,
+      "category": "invoices",
+      "difficulty": "hard",
+      "executed": false,
+      "correct_strict": false,
+      "correct_lenient": false,
+      "latency_seconds": 10.77,
+      "llm_calls": 3,
+      "prompt_tokens": 2155,
+      "output_tokens": 173,
+      "recovery_attempts": 2,
+      "sql": "SELECT ROUND(AVG(COUNT(DISTINCT StockCode)), 2) AS avg_distinct_products\nFROM (\n    SELECT InvoiceNo\n    FROM online_retail\n    WHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0\n) AS normal_sales",
+      "rows": [],
+      "error": "Maximum recovery attempts reached."
+    },
+    {
+      "rep": 3,
+      "seed": 44,
+      "id": 40,
+      "category": "returns",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 3.589,
+      "llm_calls": 2,
+      "prompt_tokens": 1485,
+      "output_tokens": 40,
+      "recovery_attempts": 0,
+      "sql": "SELECT Country, COUNT(*) AS CancellationRecords\nFROM online_retail\nWHERE InvoiceNo LIKE 'C%'\nGROUP BY Country\nORDER BY CancellationRecords DESC\nLIMIT 1;",
+      "rows": [
+        [
+          "United Kingdom",
+          7856
+        ]
+      ],
+      "error": null
+    }
+  ]
+}

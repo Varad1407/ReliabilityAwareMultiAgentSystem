@@ -3465,3 +3465,82 @@ Expand the Online Retail benchmark with new, unseen test questions.
 
 
 
+
+
+## Day 39 (continued) — Benchmark v2, Unified Runner, Experiments 1 and 2
+
+### 1. Benchmark v2
+- File: `experiments/online_retail_benchmark_v2.py`.
+- 30 new test questions (IDs 11–40), written after the validator freeze (`split = "test"`).
+- Categories: revenue, customers, products, invoices, time, data quality, cancellations, net revenue, and two deliberately ambiguous questions (35, 36) with documented resolutions.
+- Revenue definition: gross revenue = SUM(Quantity × UnitPrice) over rows with InvoiceNo NOT LIKE 'C%', Quantity > 0 and UnitPrice > 0.
+- Every reference answer was verified by an independent second SQL formulation. All top-N questions were checked for ties at the cut-off (none found).
+
+### 2. Unified experiment runner
+- `experiments/run_experiment.py` runs System A, B or C on the same questions with the same LLM settings (qwen2.5:7b via Ollama, seed = 42 + repetition − 1).
+- The frozen system code is not modified. LLM calls are routed through a wrapper that controls temperature/seed and records LLM calls and tokens.
+- `src/scoring.py` is used for all systems. Numbers are compared with an absolute tolerance of 0.01. Two verdicts are recorded: strict (exact columns) and lenient (extra columns allowed). In both experiments, strict and lenient accuracy were identical.
+- `tests/test_scoring.py`: 6 tests, all passing.
+- A mock mode (`--mock`) feeds each system the reference SQL to test the pipeline without the LLM.
+
+### 3. Experimental configuration
+- 30 questions × 3 repetitions = 90 evaluations per system.
+- Temperature 0.3, seeds 42, 43, 44.
+- Experiment 1 (`--schema base`): original Online Retail schema description.
+- Experiment 2 (`--schema definitions`): the same description plus five business definitions (normal sale, gross revenue, net revenue, purchase, customers), given identically to all three systems. This simulates a "semantic layer". The validator was not changed.
+
+### 4. Results
+
+| Metric | Exp 1 A | Exp 1 B | Exp 1 C | Exp 2 A | Exp 2 B | Exp 2 C |
+|---|---:|---:|---:|---:|---:|---:|
+| Correct answers (of 90) | 33 (36.7%) | 33 (36.7%) | 32 (35.6%) | 61 (67.8%) | 61 (67.8%) | 59 (65.6%) |
+| Answers returned | 90 | 90 | 75 | 87 | 87 | 76 |
+| Accuracy of returned answers | 36.7% | 36.7% | 42.7% | 70.1% | 70.1% | 77.6% |
+| Wrong answers returned without warning | 57 (63.3%) | 57 (63.3%) | 43 (47.8%) | 26 (28.9%) | 26 (28.9%) | 17 (18.9%) |
+| Average latency (s) | 1.89 | 3.21 | 4.89 | 2.57 | 3.71 | 5.71 |
+| LLM calls per question | 1.00 | 1.60 | 2.61 | 1.00 | 1.56 | 2.68 |
+| Prompt tokens per question | 541 | 618 | 1374 | 676 | 747 | 1716 |
+
+Result files:
+- Exp 1: `experiment_system_{A,B,C}_20261122_151901/152152/152641.json`
+- Exp 2: `experiment_definitions_system_{A,B,C}_20261122_153911/154303/154837.json`
+
+### 5. System C error detection and recovery (System A's answer with the same seed used as the initial attempt)
+
+| | Exp 1 | Exp 2 |
+|---|---:|---:|
+| Initial attempts that were wrong | 57 | 29 |
+| Wrong attempts detected (recall) | 14 (24.6%) | 13 (44.8%) |
+| Wrong attempts corrected | 0 | 4 (13.8%) |
+| Correct attempts falsely rejected | 3 of 33 (2 later recovered) | 6 of 61 (9.8%), none recovered |
+
+Paired comparison, Exp 2, A vs C: C correct where A wrong = 4; A correct where C wrong = 6. McNemar exact p = 0.754, so there is no significant accuracy difference. Repetitions are not independent (identical per-question outcomes), so this test is indicative only.
+
+### 6. Interpretation
+1. Business definitions roughly doubled accuracy for every system (36.7% → 67.8% for A). Missing domain definitions were the largest source of error, larger than any effect of the multi-agent architecture.
+2. System C did not improve overall accuracy, but it reduced wrong answers returned without warning (Exp 2: 28.9% → 18.9%) by abstaining. Its value is selective answering, not correction.
+3. All false rejections came from the rule-based checks of the frozen validator:
+   - "at least" matched the keyword "least" and was read as a ranking request (Q21, Q36).
+   - A correct BETWEEN '2011-11-01 00:00:00' AND '2011-11-30 23:59:59' filter was rejected because it did not match the expected boundary pattern (Q15).
+   Correct detections of real errors (Q25, Q26, Q31) came mainly from the LLM-based check.
+4. Recovery rarely succeeded. Most failed recoveries ended because the regenerated SQL was identical to the previous SQL, and the orchestrator stops immediately in that case.
+5. System B produced identical SQL to System A in all 180 evaluations because both use the same SQL-generation prompt and seed. B only adds a natural-language answer step, which does not affect result correctness.
+6. Every question was either correct in all 3 repetitions or wrong in all 3 (except Q25 and Q35), showing low run-to-run variation at temperature 0.3.
+
+### 7. Remaining genuine reasoning errors (Exp 2, System A)
+- Q18: missing the UnitPrice > 0 filter for quantity totals.
+- Q25, Q31: GROUP BY with COUNT returns one row per group instead of a single count.
+- Q26, Q36, Q37: missing or wrong filters for customers and invoices.
+- Q27: weekday number returned instead of weekday name.
+- Q33: missing the UnitPrice > 0 filter.
+- Q39: invalid nested aggregate (execution error) or integer division.
+
+### 8. Limitations
+- One model (qwen2.5:7b), one database, 30 test questions.
+- Repetitions showed almost no variation, so the effective sample size is closer to 30 than 90.
+- The validator and the orchestrator weaknesses were found on the test set and were deliberately not fixed, to avoid tuning on test data.
+- The mock-mode test confirmed the pipeline, but mock results are not experimental evidence.
+
+### 9. Next steps
+- Produce result figures (accuracy, wrong-answer rate, latency per system and experiment).
+- Update README status and write the results chapter.

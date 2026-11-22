@@ -17,8 +17,8 @@ On 20 hold-out questions (3 repetitions each) over the UCI Online Retail dataset
 | A — single agent, qwen2.5:14b | 81.7% | 18.3% | 8.0 s |
 | **C v3 — all steps qwen2.5:14b** | **88.3%** | **11.7%** | 27.5 s |
 
-1. **Domain definitions matter most.** Adding business definitions (gross revenue, normal sale, …) to the schema prompt raised 7B accuracy from 36.7% to 67.8% on the development set.
-2. **Model capability matters next.** 7B → 14B raised hold-out accuracy from 45.0% to 81.7% (10 questions improved, 0 worse; sign test p = 0.002).
+1. **Domain definitions and model capability matter far more than agent architecture.** Adding business definitions to the schema prompt raised 7B accuracy from 36.7% to 67.8% on the development set. Moving from 7B to 14B raised hold-out accuracy from 45.0% to 81.7% (10 questions improved, 0 worse; sign test p = 0.002). The two effects were measured on different question sets and are not ranked against each other.
+2. **No architectural change came close to either effect.** The best recovery design added at most 13.3 points.
 3. **Self-recovery with a weak model does not work.** The 7B model's errors are systematic, so the generator, judge and repairer share the same blind spots.
 4. **Recovery helps a capable model.** With 14B for every step, recovery fixed 4 answers and broke none (81.7% → 88.3%) at about 3.4× latency. This is consistent but not statistically significant on 20 questions.
 

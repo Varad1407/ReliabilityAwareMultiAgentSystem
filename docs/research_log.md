@@ -3690,11 +3690,11 @@ Result file: `experiment_holdout_definitions_system_C3_gen-qwen2.5-14b_20261122_
 
 ## Overall Conclusions of the Experimental Programme (Experiments 1–4)
 
-1. **Domain definitions matter most.** Adding business definitions to the schema prompt raised 7B accuracy from 36.7% to 67.8% on the development set.
-2. **Model capability matters next.** Replacing the 7B generator with 14B raised hold-out accuracy from 45.0% to 81.7% (10 questions improved, 0 worse, p = 0.002).
+1. **Domain definitions and model capability matter far more than architecture.** Business definitions raised 7B accuracy from 36.7% to 67.8% (development set). Replacing the 7B generator with 14B raised hold-out accuracy from 45.0% to 81.7% (10 questions improved, 0 worse, p = 0.002). These effects were measured on different question sets and are not ranked against each other. (Correction, Day 39: an earlier version of this entry stated that definitions mattered most; that ranking is not supported.)
+2. **Model capability exceeded any architectural effect.** The best recovery configuration added at most 13.3 points over its baseline.
 3. **Self-recovery with a weak model does not work.** With the 7B model as generator and reviewer, neither recovery design improved accuracy significantly. The model's errors are systematic, so the generator, judge and repairer share the same blind spots. Keyword-based validation (v2) also caused false rejections.
 4. **Recovery helps once the reviewer is capable.** A 14B reviewer improved the 7B pipeline (+13.3 points), and a full 14B recovery pipeline improved the 14B baseline (+6.7 points, 4 fixed / 0 broken). Neither beat simply using the stronger model for generation, which has the best accuracy for the cost.
-5. **Reliability costs.** Recovery pipelines cost about 3.4–5× the latency and 3–5× the prompt tokens of a single call.
+5. **Reliability costs.** On the hold-out set, recovery pipelines cost 3.4–5.3× the latency and 3.2–4.5× the prompt tokens of the matching single-agent baseline.
 6. **Design lessons for System C v3:** result-based checks instead of keyword rules, self-consistency voting, a judge that sees results, and retrying with variation instead of stopping on identical SQL. Candidate agreement alone was a weak correctness signal for a small model.
 
 Overall: autonomous error detection and recovery is not a substitute for model capability or domain knowledge. It provides a modest, non-harmful reliability gain when the underlying model is strong enough to recognise its own errors. Confirming this with statistical significance requires a larger benchmark.

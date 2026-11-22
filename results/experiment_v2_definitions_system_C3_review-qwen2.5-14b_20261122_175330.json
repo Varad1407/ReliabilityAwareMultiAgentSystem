@@ -1,0 +1,58 @@
+{
+  "summary": {
+    "system": "C3",
+    "review_model": "qwen2.5:14b",
+    "benchmark": "v2",
+    "schema": "definitions",
+    "model": "qwen2.5:7b",
+    "temperature": 0.0,
+    "reps": 1,
+    "seeds": [
+      42
+    ],
+    "questions": 1,
+    "evaluations": 1,
+    "mock": false,
+    "execution_rate": 1.0,
+    "accuracy_strict": 1.0,
+    "accuracy_lenient": 1.0,
+    "avg_latency_seconds": 32.753,
+    "avg_llm_calls": 6.0,
+    "avg_prompt_tokens": 3835.0,
+    "avg_output_tokens": 359.0
+  },
+  "records": [
+    {
+      "rep": 1,
+      "seed": 42,
+      "id": 31,
+      "category": "revenue",
+      "difficulty": "medium",
+      "executed": true,
+      "correct_strict": true,
+      "correct_lenient": true,
+      "latency_seconds": 32.753,
+      "llm_calls": 6,
+      "review_calls": 2,
+      "prompt_tokens": 3835,
+      "output_tokens": 359,
+      "recovery_attempts": 1,
+      "sql": "SELECT COUNT(DISTINCT Country)\nFROM (\n    SELECT Country, SUM(Quantity * UnitPrice) AS GrossRevenue\n    FROM online_retail\n    WHERE InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0\n    GROUP BY Country\n    HAVING SUM(Quantity * UnitPrice) > 100000\n) AS T1",
+      "rows": [
+        [
+          6
+        ]
+      ],
+      "agreement": 0,
+      "trace": [
+        "candidate 0: problem=The question asks for a single value, but the query returned 6 rows. A GROUP BY may be producing one row per group; aggregate over the groups (for example with a subquery) instead.",
+        "candidate 1: problem=The query failed to execute: no such column: T2.Country",
+        "candidate 2: problem=The query failed to execute: no such column: T2.Country",
+        "agreement=0/3",
+        "repair 1: same_sql=False same_result=False",
+        "repair 1 problem=None"
+      ],
+      "error": null
+    }
+  ]
+}

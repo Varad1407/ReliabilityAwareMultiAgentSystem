@@ -159,6 +159,8 @@ def main():
     parser.add_argument("--schema", choices=list(SCHEMAS), default="base",
                         help="base = Experiment 1, definitions = Experiment 2")
     parser.add_argument("--benchmark", choices=list(BENCHMARKS), default="v2")
+    parser.add_argument("--gen-model", default=None,
+                        help="Override the main (SQL generation) model, e.g. qwen2.5:14b")
     parser.add_argument("--review-model", default=None,
                         help="C3 only: different LLM for judge and repair, e.g. qwen2.5:14b")
     parser.add_argument("--mock", action="store_true", help="Test plumbing without Ollama")
@@ -167,6 +169,8 @@ def main():
     questions = [q for q in BENCHMARKS[args.benchmark]
                  if not args.ids or q["id"] in args.ids]
 
+    if args.gen_model:
+        llm_client.MODEL_NAME = args.gen_model
     tracker = LLMTracker(args.temperature, mock=args.mock)
     install_tracker(tracker)
 
@@ -174,7 +178,8 @@ def main():
     results_dir.mkdir(exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     tag = "mock_" if args.mock else ""
-    rm_tag = f"_review-{args.review_model.replace(':', '-')}" if args.review_model else ""
+    rm_tag = (f"_gen-{args.gen_model.replace(':', '-')}" if args.gen_model else "")
+    rm_tag += (f"_review-{args.review_model.replace(':', '-')}" if args.review_model else "")
     output_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}{rm_tag}_{stamp}.json"
     log_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}{rm_tag}_{stamp}.log"
 

@@ -1,0 +1,7 @@
+configuration,correct_pct,wrong_without_warning_pct,abstained_pct,avg_latency_s
+A (7B),45.0,50.0,5.0,2.7
+C v2 (7B),40.0,33.3,26.7,9.7
+C v3 (7B),46.7,45.0,8.3,14.4
+C v3 (7B + 14B reviewer),58.3,33.3,8.3,30.7
+A (14B),81.7,18.3,0.0,8.0
+C v3 (14B),88.3,11.7,0.0,27.5

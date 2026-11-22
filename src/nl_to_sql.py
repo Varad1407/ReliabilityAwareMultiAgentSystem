@@ -118,6 +118,31 @@ Important dataset information:
 """
 
 
+
+# ==================================================
+# 2b. ONLINE RETAIL SCHEMA WITH BUSINESS DEFINITIONS
+# ==================================================
+# Added Day 39 for Experiment 2 ("semantic layer" condition).
+# The original ONLINE_RETAIL_DATABASE_SCHEMA above is unchanged so that
+# Experiment 1 remains reproducible. All three systems receive the same text.
+
+ONLINE_RETAIL_SCHEMA_WITH_DEFINITIONS = ONLINE_RETAIL_DATABASE_SCHEMA + """
+Business definitions (use these unless the question explicitly says otherwise):
+
+16. A "normal sale" record is a record where:
+    InvoiceNo NOT LIKE 'C%' AND Quantity > 0 AND UnitPrice > 0
+
+17. "Gross revenue" (also "revenue" or "sales") is:
+    SUM(Quantity * UnitPrice) over normal-sale records only.
+
+18. "Net revenue" is SUM(Quantity * UnitPrice) over all records,
+    including cancellations, returns and adjustments.
+
+19. A "purchase" means a normal sale.
+
+20. "Customers" means distinct non-NULL CustomerID values.
+"""
+
 # ==================================================
 # 3. SQL GENERATION
 # ==================================================

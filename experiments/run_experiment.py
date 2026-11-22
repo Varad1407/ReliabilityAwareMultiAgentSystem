@@ -34,7 +34,13 @@ import llm_client
 import nl_to_sql
 import agents.analysis_agent as analysis_agent_module
 import agents.semantic_validation_agent_v2 as validator_module
-from nl_to_sql import generate_sql, ONLINE_RETAIL_DATABASE_SCHEMA
+from nl_to_sql import (generate_sql, ONLINE_RETAIL_DATABASE_SCHEMA,
+                       ONLINE_RETAIL_SCHEMA_WITH_DEFINITIONS)
+
+SCHEMAS = {
+    "base": ONLINE_RETAIL_DATABASE_SCHEMA,              # Experiment 1
+    "definitions": ONLINE_RETAIL_SCHEMA_WITH_DEFINITIONS,  # Experiment 2
+}
 from sql_executor import execute_sql
 from agents.orchestrator import orchestrate
 from agents.orchestrator_c_v2 import orchestrate_c_v2
@@ -100,8 +106,8 @@ def install_tracker(tracker):
 # The three systems, called the same way
 # --------------------------------------------------
 
-def run_system(system, question):
-    db, schema = online_retail_database_path, ONLINE_RETAIL_DATABASE_SCHEMA
+def run_system(system, question, schema):
+    db = online_retail_database_path
 
     if system == "A":
         sql = generate_sql(question, schema)
@@ -132,6 +138,8 @@ def main():
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--base-seed", type=int, default=42)
     parser.add_argument("--ids", type=int, nargs="*", help="Only run these question IDs")
+    parser.add_argument("--schema", choices=list(SCHEMAS), default="base",
+                        help="base = Experiment 1, definitions = Experiment 2")
     parser.add_argument("--mock", action="store_true", help="Test plumbing without Ollama")
     args = parser.parse_args()
 
@@ -145,11 +153,11 @@ def main():
     results_dir.mkdir(exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     tag = "mock_" if args.mock else ""
-    output_path = results_dir / f"experiment_{tag}system_{args.system}_{stamp}.json"
-    log_path = results_dir / f"experiment_{tag}system_{args.system}_{stamp}.log"
+    output_path = results_dir / f"experiment_{tag}{args.schema}_system_{args.system}_{stamp}.json"
+    log_path = results_dir / f"experiment_{tag}{args.schema}_system_{args.system}_{stamp}.log"
 
     print(f"System {args.system} | {len(questions)} questions x {args.reps} reps | "
-          f"temperature={args.temperature} | mock={args.mock}")
+          f"temperature={args.temperature} | schema={args.schema} | mock={args.mock}")
 
     records = []
     with open(log_path, "w", encoding="utf-8") as log:
@@ -162,7 +170,7 @@ def main():
                 start = time.perf_counter()
                 try:
                     with contextlib.redirect_stdout(captured):
-                        result = run_system(args.system, item["question"])
+                        result = run_system(args.system, item["question"], SCHEMAS[args.schema])
                 except Exception as error:
                     result = {"success": False, "rows": [], "sql_query": None,
                               "error": f"{type(error).__name__}: {error}"}
@@ -195,7 +203,7 @@ def main():
 
     n = len(records)
     summary = {
-        "system": args.system, "model": llm_client.MODEL_NAME,
+        "system": args.system, "schema": args.schema, "model": llm_client.MODEL_NAME,
         "temperature": args.temperature, "reps": args.reps,
         "seeds": [args.base_seed + r for r in range(args.reps)],
         "questions": len(questions), "evaluations": n, "mock": args.mock,

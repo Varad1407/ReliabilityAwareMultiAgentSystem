@@ -3660,3 +3660,41 @@ Result files:
 - 20 hold-out questions; repetitions highly correlated; per-question tests have low power.
 - One model family (Qwen 2.5), one database.
 - The hold-out set has now been used for four configurations; further design changes must not be tuned on it.
+
+
+## Day 39 (continued) — Experiment 4: Recovery on Top of the Stronger Model (final experiment)
+
+### 1. Design
+- System C v3 unchanged, with qwen2.5:14b used for every step: generation, candidates, judge and repair (`--system C3 --gen-model qwen2.5:14b`).
+- Compared with System A using qwen2.5:14b (the control from Experiment 3), on the hold-out set with the same seeds.
+- Question: does autonomous detection and recovery add value once the base model is capable?
+
+### 2. Results — hold-out questions 41–60 (60 evaluations)
+
+| System (all steps qwen2.5:14b) | Correct | Wrong answers returned without warning | Latency (s) | LLM calls | Prompt tokens |
+|---|---:|---:|---:|---:|---:|
+| A — single agent | 49 (81.7%) | 11 (18.3%) | 8.0 | 1.00 | 675 |
+| C3 — detection and recovery | 53 (88.3%) | 7 (11.7%) | 27.5 | 4.80 | 2914 |
+
+- Paired comparison: C3 fixed 4 answers and broke 0 (McNemar exact p = 0.125). Per question: 2 improved, 0 worse (sign test p = 0.50).
+- Fixed cases: Q54 (2 of 3 runs, wrong denominator for "average revenue per customer") and Q60 (2 of 3 runs, GROUP BY returning one row per customer). Each was fixed by one repair after a deterministic or judge check flagged the first answer.
+- Unsolved by both: Q44 and Q59 (timestamp `BETWEEN` boundary), where the model and its reviewer consistently accept the wrong filter.
+
+Result file: `experiment_holdout_definitions_system_C3_gen-qwen2.5-14b_20261122_192412.json`.
+
+### 3. Interpretation
+- With a capable model, recovery improved accuracy (+6.7 points) and reduced wrong answers returned without warning (18.3% → 11.7%) without breaking any correct answer, at about 3.4× latency and 4.3× prompt tokens.
+- The improvement is consistent but not statistically significant with 20 questions.
+
+---
+
+## Overall Conclusions of the Experimental Programme (Experiments 1–4)
+
+1. **Domain definitions matter most.** Adding business definitions to the schema prompt raised 7B accuracy from 36.7% to 67.8% on the development set.
+2. **Model capability matters next.** Replacing the 7B generator with 14B raised hold-out accuracy from 45.0% to 81.7% (10 questions improved, 0 worse, p = 0.002).
+3. **Self-recovery with a weak model does not work.** With the 7B model as generator and reviewer, neither recovery design improved accuracy significantly. The model's errors are systematic, so the generator, judge and repairer share the same blind spots. Keyword-based validation (v2) also caused false rejections.
+4. **Recovery helps once the reviewer is capable.** A 14B reviewer improved the 7B pipeline (+13.3 points), and a full 14B recovery pipeline improved the 14B baseline (+6.7 points, 4 fixed / 0 broken). Neither beat simply using the stronger model for generation, which has the best accuracy for the cost.
+5. **Reliability costs.** Recovery pipelines cost about 3.4–5× the latency and 3–5× the prompt tokens of a single call.
+6. **Design lessons for System C v3:** result-based checks instead of keyword rules, self-consistency voting, a judge that sees results, and retrying with variation instead of stopping on identical SQL. Candidate agreement alone was a weak correctness signal for a small model.
+
+Overall: autonomous error detection and recovery is not a substitute for model capability or domain knowledge. It provides a modest, non-harmful reliability gain when the underlying model is strong enough to recognise its own errors. Confirming this with statistical significance requires a larger benchmark.

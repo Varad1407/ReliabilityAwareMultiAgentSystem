@@ -3544,3 +3544,67 @@ Paired comparison, Exp 2, A vs C: C correct where A wrong = 4; A correct where C
 ### 9. Next steps
 - Produce result figures (accuracy, wrong-answer rate, latency per system and experiment).
 - Update README status and write the results chapter.
+
+
+## Day 39 (continued) — System C v3 and Final Hold-Out Evaluation
+
+### 1. Procedure (order verified by Git tags)
+1. `holdout-frozen`: 20 new hold-out questions (IDs 41–60) written, verified with independent second SQL formulations, and committed BEFORE System C v3 was designed.
+2. System C v3 (`src/agents/orchestrator_c_v3.py`) was designed using only benchmark v2 (IDs 11–40):
+   - 3 SQL candidates (candidate 0 = System A's generation; 2 more at temperature 0.8) with result-based majority voting.
+   - Result-based checks only (execution error, empty/NULL result, multiple rows for a single-value question). No keyword rules.
+   - An LLM judge that sees the question, SQL and result preview.
+   - Up to 3 repairs; an identical SQL or identical result triggers a retry with a new seed instead of stopping.
+   - Abstain only if checks still fail after repairs and fewer than 2 candidates agree.
+   - Unit tests: `tests/test_orchestrator_c_v3.py` (4 tests, scripted fake LLM).
+3. Two development runs on v2 questions (63/90 correct both times). Agreement-based abstention thresholds were analysed on development data only and rejected (see section 2). v3 was frozen with tag `c3-frozen`.
+4. A one-time hold-out run: Systems A, C (v2) and C3 (v3), 20 questions × 3 repetitions, temperature 0.3, seeds 42–44, schema with business definitions. System B was omitted because it produced SQL identical to System A in all 180 earlier evaluations.
+
+### 2. Development-set findings for v3 (questions 11–40)
+
+| Policy | Answered | Correct | Wrong answers returned |
+|---|---:|---:|---:|
+| v3 as built | 87 | 63 | 24 |
+| Answer only if ≥2 of 3 candidates agree | 79 | 58 | 21 |
+| Answer only if all 3 agree | 61 | 46 | 15 |
+
+In 15 cases all three candidates agreed on the same wrong result. The model's errors are systematic rather than random, so candidate agreement is a weak correctness signal.
+
+### 3. Hold-out results (questions 41–60, 60 evaluations per system)
+
+| Metric | System A | System C (v2) | System C v3 |
+|---|---:|---:|---:|
+| Correct answers | 27 (45.0%) | 24 (40.0%) | 28 (46.7%) |
+| Answers returned | 57 | 44 | 55 |
+| Accuracy of returned answers | 47.4% | 54.5% | 50.9% |
+| Wrong answers returned without warning | 30 (50.0%) | 20 (33.3%) | 27 (45.0%) |
+| Wrong attempts corrected (vs A, same seed) | — | 2 | 3 |
+| Correct attempts lost (vs A, same seed) | — | 5 | 2 |
+| Average latency (s) | 2.73 | 9.66 | 14.41 |
+| LLM calls per question | 1.00 | 3.10 | 4.85 |
+| Prompt tokens per question | 675 | 2151 | 3049 |
+
+McNemar exact tests vs System A: C v2 p = 0.453, C v3 p = 1.000. Neither difference is statistically significant.
+
+Result files: `experiment_holdout_definitions_system_{A,C,C3}_20261122_165209/165453/170432.json`.
+
+### 4. Hold-out error analysis (System A, repetition 1)
+All failures were checked manually and are genuine errors, not scoring artefacts:
+- Missing UnitPrice > 0 even though the business definitions were provided: Q45, Q46, Q49, Q50, Q55, Q59.
+- `BETWEEN '…' AND '2011-03-31'` on timestamp values silently excludes the last day: Q44, Q59.
+- GROUP BY returning one row per group instead of a single number: Q57, Q60.
+- Wrong denominator (invoices instead of customers): Q54.
+- Self-join overcounting: Q47.
+
+### 5. Conclusions
+1. Neither recovery design produced a statistically significant accuracy improvement over the single-agent baseline on the hold-out set.
+2. v3 was the most accurate system on both question sets and had the best balance of corrections to losses (development +4/−2, hold-out +3/−2), compared with v2 (development +4/−6, hold-out +2/−5).
+3. v2 reduced wrong answers returned without warning the most (50.0% → 33.3% on hold-out), but mainly by abstaining, at the cost of correct answers.
+4. Self-checking with the same 7B model can repair errors that have visible symptoms (execution errors, multi-row results for single-value questions). It cannot detect errors the model makes consistently (ignored filters, timestamp boundary mistakes), because the generator, judge and repairer share the same misunderstanding.
+5. Domain definitions had the largest single effect (Experiment 1 → 2: 36.7% → 67.8%), but the model still ignored them in many hold-out questions.
+6. Reliability mechanisms increased latency 3.5–5× and prompt tokens 3–4.5×.
+
+### 6. Limitations
+- One model (qwen2.5:7b), one database, 20 hold-out questions. Repetitions were highly correlated, so the effective sample size is close to the number of questions.
+- The hold-out questions were harder than the development questions (System A: 67.8% vs 45.0%).
+- The hold-out questions, v3 and the benchmark answers were produced with AI assistance and verified by independent SQL formulations. The chronology is recorded by Git tags.

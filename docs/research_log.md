@@ -3608,3 +3608,55 @@ All failures were checked manually and are genuine errors, not scoring artefacts
 - One model (qwen2.5:7b), one database, 20 hold-out questions. Repetitions were highly correlated, so the effective sample size is close to the number of questions.
 - The hold-out questions were harder than the development questions (System A: 67.8% vs 45.0%).
 - The hold-out questions, v3 and the benchmark answers were produced with AI assistance and verified by independent SQL formulations. The chronology is recorded by Git tags.
+
+
+## Day 39 (continued) — Experiment 3: Larger Reviewer Model and Model-Size Control
+
+### 1. Design (fixed before results were seen)
+- System C v3 unchanged, except that the judge and repair steps use qwen2.5:14b (`--review-model qwen2.5:14b`). SQL generation remains qwen2.5:7b.
+- Hypothesis: v3 failed with a 7B reviewer because generator and reviewer share the same blind spots; an independent, stronger reviewer should detect and repair more errors.
+- The hold-out set was reused because no design decision was tuned on it.
+- Control (added after Experiment 3, before interpretation): System A with qwen2.5:14b as the generator (`--gen-model qwen2.5:14b`), to separate the effect of the recovery design from the effect of model size.
+
+### 2. Results — development questions 11–40 (90 evaluations)
+
+| System | Correct | Fixed / lost vs A | Latency (s) |
+|---|---:|---:|---:|
+| A (7B) | 61 (67.8%) | — | 2.6 |
+| C3, 7B reviewer | 63 (70.0%) | 4 / 2 | 11.7 |
+| C3, 14B reviewer | 68 (75.6%) | 9 / 2 | 25.8 |
+
+### 3. Results — hold-out questions 41–60 (60 evaluations)
+
+| System | Correct | Wrong answers returned without warning | Latency (s) | LLM calls | Prompt tokens |
+|---|---:|---:|---:|---:|---:|
+| A (7B) | 27 (45.0%) | 30 (50.0%) | 2.7 | 1.00 | 675 |
+| C (v2, 7B) | 24 (40.0%) | 20 (33.3%) | 9.7 | 3.10 | 2151 |
+| C3, 7B reviewer | 28 (46.7%) | 27 (45.0%) | 14.4 | 4.85 | 3049 |
+| C3, 14B reviewer | 35 (58.3%) | 20 (33.3%) | 30.7 | 5.08 | 3225 |
+| **A (14B generator, control)** | **49 (81.7%)** | **11 (18.3%)** | **8.0** | **1.00** | **675** |
+
+Paired comparisons (McNemar exact; per evaluation, and per question as a sign test on the 3-repetition totals):
+
+| Comparison | Per evaluation (gains/losses, p) | Per question (gains/losses, p) |
+|---|---|---|
+| C3-14B reviewer vs A-7B | 9 / 1, p = 0.021 | 5 / 1, p = 0.219 |
+| A-14B vs A-7B | 22 / 0, p < 0.001 | 10 / 0, p = 0.002 |
+| C3-14B reviewer vs A-14B | 4 / 18, p = 0.004 | 2 / 9, p = 0.065 |
+
+Result files:
+- `experiment_v2_definitions_system_C3_review-qwen2.5-14b_20261122_180031.json`
+- `experiment_holdout_definitions_system_C3_review-qwen2.5-14b_20261122_183912.json`
+- `experiment_holdout_definitions_system_A_gen-qwen2.5-14b_20261122_191324.json`
+
+### 4. Interpretation
+1. A stronger, independent reviewer made recovery effective: on hold-out it fixed 9 wrong answers and broke 1 (+13.3 percentage points over A-7B), consistent with the development set (+7.8 points).
+2. However, using the 14B model directly as a single-agent generator was far better: 81.7% correct, 18.3% wrong answers returned without warning, about 4× faster and with about 5× fewer prompt tokens than C3 with the 14B reviewer.
+3. Therefore most of the improvement comes from model capability, not from the multi-agent recovery architecture. Pairing a weak generator with a strong reviewer is worse than using the strong model to generate.
+4. The 14B-reviewer configuration solved two questions the 14B generator alone never solved (Q54 in 3/3, Q60 in 1/3). This suggests recovery may still add value on top of a strong generator, which has not yet been tested.
+5. Errors shared by all configurations remain: timestamp `BETWEEN` boundary errors (Q44, Q59).
+
+### 5. Limitations
+- 20 hold-out questions; repetitions highly correlated; per-question tests have low power.
+- One model family (Qwen 2.5), one database.
+- The hold-out set has now been used for four configurations; further design changes must not be tuned on it.

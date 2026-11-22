@@ -34,6 +34,7 @@ import llm_client
 import nl_to_sql
 import agents.analysis_agent as analysis_agent_module
 import agents.semantic_validation_agent_v2 as validator_module
+import agents.orchestrator_c_v3 as c_v3_module
 from nl_to_sql import (generate_sql, ONLINE_RETAIL_DATABASE_SCHEMA,
                        ONLINE_RETAIL_SCHEMA_WITH_DEFINITIONS)
 
@@ -44,8 +45,15 @@ SCHEMAS = {
 from sql_executor import execute_sql
 from agents.orchestrator import orchestrate
 from agents.orchestrator_c_v2 import orchestrate_c_v2
+from agents.orchestrator_c_v3 import orchestrate_c_v3
 from database import online_retail_database_path
 from online_retail_benchmark_v2 import online_retail_benchmark_v2
+from online_retail_benchmark_holdout import online_retail_benchmark_holdout
+
+BENCHMARKS = {
+    "v2": online_retail_benchmark_v2,            # design/dev questions 11-40
+    "holdout": online_retail_benchmark_holdout,  # final test only, questions 41-60
+}
 from scoring import score
 
 
@@ -66,7 +74,7 @@ class LLMTracker:
         self.prompt_tokens = 0
         self.output_tokens = 0
 
-    def __call__(self, prompt):
+    def __call__(self, prompt, temperature=None, seed=None):
         self.calls += 1
         if self.mock:
             return self._mock_response(prompt)
@@ -75,7 +83,10 @@ class LLMTracker:
             "model": llm_client.MODEL_NAME,
             "prompt": prompt,
             "stream": False,
-            "options": {"temperature": self.temperature, "seed": self.seed},
+            "options": {
+                "temperature": self.temperature if temperature is None else temperature,
+                "seed": self.seed if seed is None else seed,
+            },
         }).encode("utf-8")
         request = urllib.request.Request(
             llm_client.OLLAMA_URL, data=data,
@@ -98,7 +109,7 @@ class LLMTracker:
 
 
 def install_tracker(tracker):
-    for module in (llm_client, nl_to_sql, analysis_agent_module, validator_module):
+    for module in (llm_client, nl_to_sql, analysis_agent_module, validator_module, c_v3_module):
         module.generate_response = tracker
 
 
@@ -106,7 +117,7 @@ def install_tracker(tracker):
 # The three systems, called the same way
 # --------------------------------------------------
 
-def run_system(system, question, schema):
+def run_system(system, question, schema, seed=42):
     db = online_retail_database_path
 
     if system == "A":
@@ -114,6 +125,8 @@ def run_system(system, question, schema):
         result = execute_sql(sql, db)
         return {"success": result["success"], "sql_query": sql,
                 "rows": result.get("rows", []), "error": result.get("error"),
+                    "agreement": result.get("agreement"),
+                    "trace": result.get("trace"),
                 "recovery_attempts": 0}
 
     if system == "B":
@@ -124,6 +137,9 @@ def run_system(system, question, schema):
     if system == "C":
         return orchestrate_c_v2(question, db_path=db, database_schema=schema)
 
+    if system == "C3":
+        return orchestrate_c_v3(question, db_path=db, database_schema=schema, base_seed=seed)
+
     raise ValueError(f"Unknown system: {system}")
 
 
@@ -133,17 +149,18 @@ def run_system(system, question, schema):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--system", required=True, choices=["A", "B", "C"])
+    parser.add_argument("--system", required=True, choices=["A", "B", "C", "C3"])
     parser.add_argument("--reps", type=int, default=1)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--base-seed", type=int, default=42)
     parser.add_argument("--ids", type=int, nargs="*", help="Only run these question IDs")
     parser.add_argument("--schema", choices=list(SCHEMAS), default="base",
                         help="base = Experiment 1, definitions = Experiment 2")
+    parser.add_argument("--benchmark", choices=list(BENCHMARKS), default="v2")
     parser.add_argument("--mock", action="store_true", help="Test plumbing without Ollama")
     args = parser.parse_args()
 
-    questions = [q for q in online_retail_benchmark_v2
+    questions = [q for q in BENCHMARKS[args.benchmark]
                  if not args.ids or q["id"] in args.ids]
 
     tracker = LLMTracker(args.temperature, mock=args.mock)
@@ -153,11 +170,11 @@ def main():
     results_dir.mkdir(exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     tag = "mock_" if args.mock else ""
-    output_path = results_dir / f"experiment_{tag}{args.schema}_system_{args.system}_{stamp}.json"
-    log_path = results_dir / f"experiment_{tag}{args.schema}_system_{args.system}_{stamp}.log"
+    output_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}_{stamp}.json"
+    log_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}_{stamp}.log"
 
     print(f"System {args.system} | {len(questions)} questions x {args.reps} reps | "
-          f"temperature={args.temperature} | schema={args.schema} | mock={args.mock}")
+          f"temperature={args.temperature} | benchmark={args.benchmark} | schema={args.schema} | mock={args.mock}")
 
     records = []
     with open(log_path, "w", encoding="utf-8") as log:
@@ -170,7 +187,7 @@ def main():
                 start = time.perf_counter()
                 try:
                     with contextlib.redirect_stdout(captured):
-                        result = run_system(args.system, item["question"], SCHEMAS[args.schema])
+                        result = run_system(args.system, item["question"], SCHEMAS[args.schema], tracker.seed)
                 except Exception as error:
                     result = {"success": False, "rows": [], "sql_query": None,
                               "error": f"{type(error).__name__}: {error}"}
@@ -203,7 +220,7 @@ def main():
 
     n = len(records)
     summary = {
-        "system": args.system, "schema": args.schema, "model": llm_client.MODEL_NAME,
+        "system": args.system, "benchmark": args.benchmark, "schema": args.schema, "model": llm_client.MODEL_NAME,
         "temperature": args.temperature, "reps": args.reps,
         "seeds": [args.base_seed + r for r in range(args.reps)],
         "questions": len(questions), "evaluations": n, "mock": args.mock,

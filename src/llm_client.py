@@ -7,7 +7,7 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "qwen2.5:7b"
 
 
-def generate_response(prompt):
+def generate_response(prompt, temperature=0.0, seed=42):
 
     # Prepare the request data
     data = {
@@ -15,8 +15,8 @@ def generate_response(prompt):
         "prompt": prompt,
         "stream": False,
         "options": {
-            "temperature": 0.0,
-            "seed": 42
+            "temperature": temperature,
+            "seed": seed
         }
     }
 

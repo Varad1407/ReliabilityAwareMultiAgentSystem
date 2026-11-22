@@ -32,7 +32,7 @@ class FakeLLM:
         self.repairs = list(repairs)
         self.repair_calls = 0
 
-    def __call__(self, prompt, temperature=None, seed=None):
+    def __call__(self, prompt, temperature=None, seed=None, model=None):
         if prompt.rstrip().endswith("CORRECTED SQL QUERY:"):
             self.repair_calls += 1
             return self.repairs.pop(0) if self.repairs else WRONG

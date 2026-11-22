@@ -73,14 +73,17 @@ class LLMTracker:
         self.calls = 0
         self.prompt_tokens = 0
         self.output_tokens = 0
+        self.review_calls = 0
 
-    def __call__(self, prompt, temperature=None, seed=None):
+    def __call__(self, prompt, temperature=None, seed=None, model=None):
         self.calls += 1
+        if model:
+            self.review_calls += 1
         if self.mock:
             return self._mock_response(prompt)
 
         data = json.dumps({
-            "model": llm_client.MODEL_NAME,
+            "model": model or llm_client.MODEL_NAME,
             "prompt": prompt,
             "stream": False,
             "options": {
@@ -117,7 +120,7 @@ def install_tracker(tracker):
 # The three systems, called the same way
 # --------------------------------------------------
 
-def run_system(system, question, schema, seed=42):
+def run_system(system, question, schema, seed=42, review_model=None):
     db = online_retail_database_path
 
     if system == "A":
@@ -136,7 +139,8 @@ def run_system(system, question, schema, seed=42):
         return orchestrate_c_v2(question, db_path=db, database_schema=schema)
 
     if system == "C3":
-        return orchestrate_c_v3(question, db_path=db, database_schema=schema, base_seed=seed)
+        return orchestrate_c_v3(question, db_path=db, database_schema=schema, base_seed=seed,
+                                review_model=review_model)
 
     raise ValueError(f"Unknown system: {system}")
 
@@ -155,6 +159,8 @@ def main():
     parser.add_argument("--schema", choices=list(SCHEMAS), default="base",
                         help="base = Experiment 1, definitions = Experiment 2")
     parser.add_argument("--benchmark", choices=list(BENCHMARKS), default="v2")
+    parser.add_argument("--review-model", default=None,
+                        help="C3 only: different LLM for judge and repair, e.g. qwen2.5:14b")
     parser.add_argument("--mock", action="store_true", help="Test plumbing without Ollama")
     args = parser.parse_args()
 
@@ -168,8 +174,9 @@ def main():
     results_dir.mkdir(exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     tag = "mock_" if args.mock else ""
-    output_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}_{stamp}.json"
-    log_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}_{stamp}.log"
+    rm_tag = f"_review-{args.review_model.replace(':', '-')}" if args.review_model else ""
+    output_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}{rm_tag}_{stamp}.json"
+    log_path = results_dir / f"experiment_{tag}{args.benchmark}_{args.schema}_system_{args.system}{rm_tag}_{stamp}.log"
 
     print(f"System {args.system} | {len(questions)} questions x {args.reps} reps | "
           f"temperature={args.temperature} | benchmark={args.benchmark} | schema={args.schema} | mock={args.mock}")
@@ -185,7 +192,8 @@ def main():
                 start = time.perf_counter()
                 try:
                     with contextlib.redirect_stdout(captured):
-                        result = run_system(args.system, item["question"], SCHEMAS[args.schema], tracker.seed)
+                        result = run_system(args.system, item["question"], SCHEMAS[args.schema], tracker.seed,
+                                            args.review_model)
                 except Exception as error:
                     result = {"success": False, "rows": [], "sql_query": None,
                               "error": f"{type(error).__name__}: {error}"}
@@ -203,6 +211,7 @@ def main():
                     "correct_lenient": verdict["lenient"],
                     "latency_seconds": round(latency, 3),
                     "llm_calls": tracker.calls,
+                    "review_calls": tracker.review_calls,
                     "prompt_tokens": tracker.prompt_tokens,
                     "output_tokens": tracker.output_tokens,
                     "recovery_attempts": result.get("recovery_attempts", 0),
@@ -220,7 +229,7 @@ def main():
 
     n = len(records)
     summary = {
-        "system": args.system, "benchmark": args.benchmark, "schema": args.schema, "model": llm_client.MODEL_NAME,
+        "system": args.system, "review_model": args.review_model, "benchmark": args.benchmark, "schema": args.schema, "model": llm_client.MODEL_NAME,
         "temperature": args.temperature, "reps": args.reps,
         "seeds": [args.base_seed + r for r in range(args.reps)],
         "questions": len(questions), "evaluations": n, "mock": args.mock,

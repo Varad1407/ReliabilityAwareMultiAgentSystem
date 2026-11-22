@@ -86,7 +86,7 @@ def deterministic_check(question, execution):
     return None
 
 
-def llm_judge(question, sql, execution, database_schema, seed):
+def llm_judge(question, sql, execution, database_schema, seed, model=None):
     prompt = f"""
 You are a strict reviewer of SQLite queries for a data analysis system.
 
@@ -113,7 +113,7 @@ VALID
 or
 INVALID: <one-sentence reason>
 """
-    response = generate_response(prompt, temperature=0.0, seed=seed).strip()
+    response = generate_response(prompt, temperature=0.0, seed=seed, model=model).strip()
     first = response.splitlines()[0].strip() if response else ""
     if first.upper().startswith("VALID"):
         return None
@@ -122,7 +122,7 @@ INVALID: <one-sentence reason>
     return None  # unclear reviewer output is not treated as an error
 
 
-def repair_sql(question, sql, execution, problem, database_schema, temperature, seed, previous):
+def repair_sql(question, sql, execution, problem, database_schema, temperature, seed, previous, model=None):
     tried = "\n\n".join(previous[-3:])
     rows_text = preview(execution["rows"]) if execution.get("success") else "(no result)"
     prompt = f"""
@@ -153,14 +153,16 @@ RULES:
 
 CORRECTED SQL QUERY:
 """
-    return clean_sql(generate_response(prompt, temperature=temperature, seed=seed))
+    return clean_sql(generate_response(prompt, temperature=temperature, seed=seed, model=model))
 
 
 # --------------------------------------------------
 # Main orchestrator
 # --------------------------------------------------
 
-def orchestrate_c_v3(user_question, db_path=None, database_schema=DATABASE_SCHEMA, base_seed=42):
+def orchestrate_c_v3(user_question, db_path=None, database_schema=DATABASE_SCHEMA, base_seed=42,
+                     review_model=None):
+    """review_model: optional different LLM for the judge and repair steps."""
     trace = []
 
     # 1. Generate candidates. Candidate 0 uses the default generation settings
@@ -195,7 +197,8 @@ def orchestrate_c_v3(user_question, db_path=None, database_schema=DATABASE_SCHEM
 
     # 3. Check the chosen candidate (deterministic + LLM judge), repair if needed.
     sql, execution = chosen["sql"], chosen["execution"]
-    problem = chosen["problem"] or llm_judge(user_question, sql, execution, database_schema, base_seed)
+    problem = chosen["problem"] or llm_judge(user_question, sql, execution, database_schema, base_seed,
+                                             review_model)
     tried = [c["sql"] for c in candidates]
     repairs = 0
 
@@ -209,7 +212,8 @@ def orchestrate_c_v3(user_question, db_path=None, database_schema=DATABASE_SCHEM
 
         repairs += 1
         new_sql = repair_sql(user_question, sql, execution, problem, database_schema,
-                             REPAIR_TEMPERATURE, base_seed + 2 * SEED_OFFSET + repairs, tried)
+                             REPAIR_TEMPERATURE, base_seed + 2 * SEED_OFFSET + repairs, tried,
+                             review_model)
         new_exec = execute_sql(new_sql, db_path)
         tried.append(new_sql)
 
@@ -223,7 +227,7 @@ def orchestrate_c_v3(user_question, db_path=None, database_schema=DATABASE_SCHEM
         new_problem = deterministic_check(user_question, new_exec)
         if new_problem is None:
             new_problem = llm_judge(user_question, new_sql, new_exec, database_schema,
-                                    base_seed + repairs)
+                                    base_seed + repairs, review_model)
         sql, execution, problem = new_sql, new_exec, new_problem
         trace.append(f"repair {repairs} problem={problem}")
 

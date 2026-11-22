@@ -28,3 +28,6 @@ data/*.csv
 
 # Logs
 *.log
+
+# Test-mode (mock) experiment outputs
+results/experiment_mock_*
